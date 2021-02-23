@@ -317,14 +317,14 @@ public class Home extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 690, Short.MAX_VALUE)
+            .addGap(0, 740, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 50, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 690, 50));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 740, 50));
 
         jPanel4.setBackground(new java.awt.Color(59, 113, 196));
 
@@ -340,7 +340,7 @@ public class Home extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, 240, 520));
-        getContentPane().add(tplMainBoard, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, 450, 520));
+        getContentPane().add(tplMainBoard, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, 500, 520));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
