@@ -6,6 +6,7 @@
 package swing;
 
 import java.awt.Color;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
@@ -14,11 +15,14 @@ import javax.swing.JPanel;
  */
 public class Home extends javax.swing.JFrame {
 
+    private HomestayManagementPanel mHomestayPanel;
     /**
      * Creates new form Home
      */
     public Home() {
         initComponents();
+        
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -43,8 +47,13 @@ public class Home extends javax.swing.JFrame {
         btn_4 = new javax.swing.JPanel();
         ind_4 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
+        GreetText = new javax.swing.JLabel();
+        btn_5 = new javax.swing.JPanel();
+        ind_5 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
+        tplMainBoard = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -117,7 +126,7 @@ public class Home extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Home");
+        jLabel5.setText("Add place");
 
         javax.swing.GroupLayout btn_2Layout = new javax.swing.GroupLayout(btn_2);
         btn_2.setLayout(btn_2Layout);
@@ -160,7 +169,7 @@ public class Home extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Home");
+        jLabel6.setText("Find homestay");
 
         javax.swing.GroupLayout btn_3Layout = new javax.swing.GroupLayout(btn_3);
         btn_3.setLayout(btn_3Layout);
@@ -203,7 +212,7 @@ public class Home extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Home");
+        jLabel7.setText("About ");
 
         javax.swing.GroupLayout btn_4Layout = new javax.swing.GroupLayout(btn_4);
         btn_4.setLayout(btn_4Layout);
@@ -222,6 +231,52 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(jLabel7))
         );
 
+        GreetText.setForeground(new java.awt.Color(255, 255, 255));
+        GreetText.setText("Hello, User");
+
+        btn_5.setBackground(new java.awt.Color(24, 34, 56));
+        btn_5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btn_5MousePressed(evt);
+            }
+        });
+
+        ind_5.setBackground(new java.awt.Color(255, 255, 255));
+        ind_5.setOpaque(false);
+        ind_5.setPreferredSize(new java.awt.Dimension(4, 88));
+
+        javax.swing.GroupLayout ind_5Layout = new javax.swing.GroupLayout(ind_5);
+        ind_5.setLayout(ind_5Layout);
+        ind_5Layout.setHorizontalGroup(
+            ind_5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 4, Short.MAX_VALUE)
+        );
+        ind_5Layout.setVerticalGroup(
+            ind_5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 62, Short.MAX_VALUE)
+        );
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Exit");
+
+        javax.swing.GroupLayout btn_5Layout = new javax.swing.GroupLayout(btn_5);
+        btn_5.setLayout(btn_5Layout);
+        btn_5Layout.setHorizontalGroup(
+            btn_5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_5Layout.createSequentialGroup()
+                .addComponent(ind_5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(78, 78, 78)
+                .addComponent(jLabel8))
+        );
+        btn_5Layout.setVerticalGroup(
+            btn_5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(ind_5, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+            .addGroup(btn_5Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel8))
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -230,11 +285,18 @@ public class Home extends javax.swing.JFrame {
             .addComponent(btn_2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(GreetText)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(btn_5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(133, 133, 133)
+                .addGap(23, 23, 23)
+                .addComponent(GreetText)
+                .addGap(96, 96, 96)
                 .addComponent(btn_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -242,7 +304,9 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(btn_3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(171, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(103, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 570));
@@ -276,6 +340,7 @@ public class Home extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, 240, 520));
+        getContentPane().add(tplMainBoard, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, 450, 520));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -284,14 +349,21 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
         setColor(btn_2);
         ind_2.setOpaque(true);
-        resetColor(new JPanel[]{btn_1,btn_3,btn_4}, new JPanel[]{ind_1, ind_3, ind_4});
+        resetColor(new JPanel[]{btn_1,btn_3,btn_4,btn_5}, new JPanel[]{ind_1, ind_3, ind_4,ind_5});
+        if (mHomestayPanel == null) {
+            mHomestayPanel = new HomestayManagementPanel();
+            ImageIcon icon = new ImageIcon(getClass().getResource("/swing/images/icons8_home_20px.png"));
+            tplMainBoard.addTab("Homestay manager", icon, mHomestayPanel, "Homestay Management");
+        }
+        tplMainBoard.setSelectedComponent(mHomestayPanel);
     }//GEN-LAST:event_btn_2MousePressed
 
     private void btn_1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_1MousePressed
         // TODO add your handling code here:
         setColor(btn_1);
         ind_1.setOpaque(true);
-        resetColor(new JPanel[]{btn_2,btn_3,btn_4}, new JPanel[]{ind_2, ind_3, ind_4});
+        resetColor(new JPanel[]{btn_2,btn_3,btn_4,btn_5}, new JPanel[]{ind_2, ind_3, ind_4,ind_5});
+
         
     }//GEN-LAST:event_btn_1MousePressed
 
@@ -299,15 +371,23 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
         setColor(btn_3);
         ind_3.setOpaque(true);
-        resetColor(new JPanel[]{btn_1,btn_2,btn_4}, new JPanel[]{ind_1, ind_2, ind_4});
+        resetColor(new JPanel[]{btn_1,btn_2,btn_4,btn_5}, new JPanel[]{ind_1, ind_2, ind_4,ind_5});
     }//GEN-LAST:event_btn_3MousePressed
 
     private void btn_4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_4MousePressed
         // TODO add your handling code here:
         setColor(btn_4);
         ind_4.setOpaque(true);
-        resetColor(new JPanel[]{btn_1,btn_2,btn_3}, new JPanel[]{ind_1, ind_2, ind_3});
+        resetColor(new JPanel[]{btn_1,btn_2,btn_3,btn_5}, new JPanel[]{ind_1, ind_2, ind_3,ind_5});
     }//GEN-LAST:event_btn_4MousePressed
+
+    private void btn_5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_5MousePressed
+        // TODO add your handling code here:
+        setColor(btn_5);
+        ind_5.setOpaque(true);
+        resetColor(new JPanel[]{btn_1,btn_2,btn_3,btn_4}, new JPanel[]{ind_1, ind_2, ind_3,ind_4});
+        System.exit(0);
+    }//GEN-LAST:event_btn_5MousePressed
 
     /**
      * @param args the command line arguments
@@ -359,20 +439,25 @@ public class Home extends javax.swing.JFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel GreetText;
     private javax.swing.JPanel btn_1;
     private javax.swing.JPanel btn_2;
     private javax.swing.JPanel btn_3;
     private javax.swing.JPanel btn_4;
+    private javax.swing.JPanel btn_5;
     private javax.swing.JPanel ind_1;
     private javax.swing.JPanel ind_2;
     private javax.swing.JPanel ind_3;
     private javax.swing.JPanel ind_4;
+    private javax.swing.JPanel ind_5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JTabbedPane tplMainBoard;
     // End of variables declaration//GEN-END:variables
 }
