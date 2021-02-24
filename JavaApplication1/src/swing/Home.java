@@ -386,6 +386,9 @@ public class Home extends javax.swing.JFrame {
         setColor(btn_4);
         ind_4.setOpaque(true);
         resetColor(new JPanel[]{btn_1,btn_2,btn_3,btn_5}, new JPanel[]{ind_1, ind_2, ind_3,ind_5});
+        AboutUsDialog aboutDialog = new AboutUsDialog(this, true);
+        
+        aboutDialog.setVisible(true);
     }//GEN-LAST:event_btn_4MousePressed
 
     private void btn_5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_5MousePressed
