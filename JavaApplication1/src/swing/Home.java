@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 public class Home extends javax.swing.JFrame {
 
     private HomestayManagementPanel mHomestayPanel;
+    private FindHomestayPanel mFindHomestayPanel;
     /**
      * Creates new form Home
      */
@@ -372,6 +373,12 @@ public class Home extends javax.swing.JFrame {
         setColor(btn_3);
         ind_3.setOpaque(true);
         resetColor(new JPanel[]{btn_1,btn_2,btn_4,btn_5}, new JPanel[]{ind_1, ind_2, ind_4,ind_5});
+        if (mFindHomestayPanel == null){
+            mFindHomestayPanel = new FindHomestayPanel();
+            ImageIcon icon = new ImageIcon(getClass().getResource("/swing/images/icons8_search_20px_1.png"));
+            tplMainBoard.addTab("Find place", icon, mFindHomestayPanel, "Find place");
+        }
+        tplMainBoard.setSelectedComponent(mFindHomestayPanel);
     }//GEN-LAST:event_btn_3MousePressed
 
     private void btn_4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_4MousePressed
