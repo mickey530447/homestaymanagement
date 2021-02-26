@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package swing;
+package swing.ui;
 
 /**
  *
@@ -100,13 +100,13 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
 
         chkStove.setText("Stove");
 
-        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_save_20px.png"))); // NOI18N
+        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/ui/images/icons8_save_20px.png"))); // NOI18N
         btnSave.setText("Save");
 
-        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_edit_20px_1.png"))); // NOI18N
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/ui/images/icons8_edit_20px_1.png"))); // NOI18N
         btnEdit.setText("Edit");
 
-        btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_erase_20px.png"))); // NOI18N
+        btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/ui/images/icons8_erase_20px.png"))); // NOI18N
         btnClear.setText("Clear");
 
         tblHomestay.setModel(new javax.swing.table.DefaultTableModel(
@@ -122,7 +122,7 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblHomestay);
 
-        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_delete_20px.png"))); // NOI18N
+        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/ui/images/icons8_delete_20px.png"))); // NOI18N
         btnDelete.setText("Delete");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -223,9 +223,10 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(chkFirstAid)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(chkMicrowave)
-                        .addComponent(chkStove)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(chkStove)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(chkMicrowave))))
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)

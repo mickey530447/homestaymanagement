@@ -3,9 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package swing;
+package swing.ui;
 
 import javax.swing.JOptionPane;
+import swing.dao.UserDao;
+import swing.helpers.DataValidator;
+import swing.helpers.MessageDialogHelper;
+import swing.helpers.SharedData;
+import swing.model.User;
 
 /**
  *
@@ -19,7 +24,7 @@ public class LoginDialog extends javax.swing.JDialog {
     public LoginDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         setLocationRelativeTo(parent);
     }
 
@@ -76,7 +81,7 @@ public class LoginDialog extends javax.swing.JDialog {
             }
         });
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_male_user_80px.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/ui/images/icons8_male_user_80px.png"))); // NOI18N
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
@@ -140,12 +145,25 @@ public class LoginDialog extends javax.swing.JDialog {
 
     private void btnSigninActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSigninActionPerformed
         // TODO add your handling code here:
-        if (txtUserName.getText().equals("admin")){
-            this.dispose();
+        StringBuilder sb = new StringBuilder();
+        DataValidator.validateEmpty(txtUserName, sb, "Telephone field is empty");
+        DataValidator.validateEmpty(txtPassword, sb, "Password field is empty");
+        if (sb.length() > 0){
+            MessageDialogHelper.showErrorDialog(this, sb.toString(), "Warning");
+            return;
         }
-        else {
-            JOptionPane.showMessageDialog(this, "Wrong username or password","Warning",JOptionPane.WARNING_MESSAGE);
-            
+        UserDao dao = new UserDao();
+        try{
+            User u = dao.checkLogin(txtUserName.getText(), new String(txtPassword.getPassword()));
+            if (u == null){
+                MessageDialogHelper.showErrorDialog(this, "Telephone or password is wrong", "Warning");
+            } else {
+                SharedData.u = u;
+                this.dispose();
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            MessageDialogHelper.showErrorDialog(this, e.getMessage(), "Error");
         }
     }//GEN-LAST:event_btnSigninActionPerformed
 

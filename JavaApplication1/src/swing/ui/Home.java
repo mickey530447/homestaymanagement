@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package swing;
+package swing.ui;
 
 import java.awt.Color;
 import javax.swing.ImageIcon;
@@ -28,8 +28,7 @@ public class Home extends javax.swing.JFrame {
         
         //setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
         
-        LoginDialog dialog = new LoginDialog(this, true);
-        dialog.setVisible(true);
+
     }
 
     /**
@@ -64,6 +63,11 @@ public class Home extends javax.swing.JFrame {
         tplMainBoard = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(24, 34, 56));
@@ -323,7 +327,7 @@ public class Home extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/icons8_sign_out_20px_1.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/ui/images/icons8_sign_out_20px_1.png"))); // NOI18N
         jLabel2.setText("Logout");
 
         javax.swing.GroupLayout btn_logoutLayout = new javax.swing.GroupLayout(btn_logout);
@@ -440,6 +444,12 @@ public class Home extends javax.swing.JFrame {
         
         loginDialog.setVisible(true);
     }//GEN-LAST:event_btn_logoutMousePressed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        LoginDialog dialog = new LoginDialog(this, true);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

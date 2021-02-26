@@ -5,9 +5,11 @@
  */
 package swing.dao;
 
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.sql.rowset.serial.SerialBlob;
 import swing.helpers.DatabaseHelper;
 import swing.model.User;
 
@@ -18,8 +20,8 @@ import swing.model.User;
 public class UserDao {
 
     public User checkLogin(String telephone, String password) throws Exception {
-        String sql = "select telephone, password from User where "
-                + " telephone telephone=? and password=?";
+        String sql = "select telephone, password from [User] where "
+                + " telephone=? and password=?";
         try (
                 Connection con = DatabaseHelper.openConnection();
                 PreparedStatement pstmt = con.prepareStatement(sql);
@@ -34,8 +36,32 @@ public class UserDao {
                     return u;
                 }
             }
-
         }
         return null;
+    }
+    public boolean insertUser(User u) throws Exception {
+        
+        String sql = "INSERT INTO [dbo].[User]([Telephone],[FirstName],[LastName],[Address],[Country],[Sex],[Password],[Picture])" +
+                "VALUES(?,?,?,?,?,?,?,?)";
+        try (
+                Connection con = DatabaseHelper.openConnection();
+                PreparedStatement pstmt = con.prepareStatement(sql);
+                ) {
+            pstmt.setString(1, u.getTelephone());
+            pstmt.setString(2, u.getFirstName());
+            pstmt.setString(3, u.getLastName());
+            pstmt.setString(4, u.getAddress());
+            pstmt.setString(5, u.getCountry());
+            pstmt.setInt(6, u.getSex());
+            pstmt.setString(7, u.getPassword());
+            if (u.getPicture() != null) {
+                Blob picture = new SerialBlob(u.getPicture());
+                pstmt.setBlob(8, picture);
+            } else{
+                Blob picture = null;
+                pstmt.setBlob(8, picture);
+            }
+            return pstmt.executeUpdate() > 0;
+        }
     }
 }
