@@ -19,26 +19,23 @@ import swing.model.User;
  */
 public class HomestayDao {
     public boolean insertHomestay(Homestay home) throws Exception {
-        
-        String sql = "INSERT INTO [Homestay](Telephone,FirstName,LastName,Address,Country,Sex,Password,Picture)" +
-                "VALUES(?,?,?,?,?,?,?,?)";
+
+        String sql = "INSERT INTO [Homestay](Telephone,Name,Address,Price,Picture)" +
+                "VALUES(?,?,?,?,?)";
         try (
                 Connection con = DatabaseHelper.openConnection();
                 PreparedStatement pstmt = con.prepareStatement(sql);
                 ) {
             pstmt.setString(1, home.getTelephone());
-            pstmt.setString(2, home.getFirstName());
-            pstmt.setString(3, home.getLastName());
-            pstmt.setString(4, home.getAddress());
-            pstmt.setString(5, home.getCountry());
-            pstmt.setInt(6, home.getSex());
-            pstmt.setString(7, home.getPassword());
+            pstmt.setString(2, home.getName());
+            pstmt.setString(3, home.getAddress());
+            pstmt.setDouble(4, home.getPrice());
             if (home.getPicture() != null) {
                 Blob picture = new SerialBlob(home.getPicture());
-                pstmt.setBlob(8, picture);
+                pstmt.setBlob(5, picture);
             } else{
                 Blob picture = null;
-                pstmt.setBlob(8, picture);
+                pstmt.setBlob(5, picture);
             }
             return pstmt.executeUpdate() > 0;
         }
@@ -47,25 +44,22 @@ public class HomestayDao {
         
         
         String sql = "UPDATE [Homestay]" +
-                " SET FirstName = ?,LastName = ?,Address = ?,Country = ?,Sex = ?,Password = ?,Picture = ?" +
+                " SET Name = ?,Address = ?,Price = ?,Picture = ?" +
                 " WHERE Telephone = ?";
         try (
                 Connection con = DatabaseHelper.openConnection();
                 PreparedStatement pstmt = con.prepareStatement(sql);
                 ) {
-            pstmt.setString(8, home.getTelephone());
-            pstmt.setString(1, home.getFirstName());
-            pstmt.setString(2, home.getLastName());
-            pstmt.setString(3, u.getAddress());
-            pstmt.setString(4, u.getCountry());
-            pstmt.setInt(5, u.getSex());
-            pstmt.setString(6, u.getPassword());
-            if (u.getPicture() != null) {
-                Blob picture = new SerialBlob(u.getPicture());
-                pstmt.setBlob(7, picture);
+            pstmt.setString(5, home.getTelephone());
+            pstmt.setString(1, home.getName());
+            pstmt.setString(2, home.getAddress());
+            pstmt.setDouble(3, home.getPrice());
+            if (home.getPicture() != null) {
+                Blob picture = new SerialBlob(home.getPicture());
+                pstmt.setBlob(4, picture);
             } else{
                 Blob picture = null;
-                pstmt.setBlob(7, picture);
+                pstmt.setBlob(4, picture);
             }
             return pstmt.executeUpdate() > 0;
         }
