@@ -53,7 +53,7 @@ public class SignupDialog extends javax.swing.JDialog {
         jLabel9 = new javax.swing.JLabel();
         txtCountry = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        kButton2 = new keeptoo.KButton();
+        btnPicture = new keeptoo.KButton();
         btnClear = new keeptoo.KButton();
         btnAdd = new keeptoo.KButton();
         txtPassword = new javax.swing.JPasswordField();
@@ -137,13 +137,13 @@ public class SignupDialog extends javax.swing.JDialog {
         jLabel10.setText("Country:");
         kGradientPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, -1, -1));
 
-        kButton2.setText("Choose picture");
-        kButton2.setkEndColor(new java.awt.Color(63, 120, 208));
-        kButton2.setkHoverEndColor(new java.awt.Color(255, 255, 255));
-        kButton2.setkHoverForeGround(new java.awt.Color(0, 0, 0));
-        kButton2.setkHoverStartColor(new java.awt.Color(255, 255, 255));
-        kButton2.setkStartColor(new java.awt.Color(111, 122, 140));
-        kGradientPanel1.add(kButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 340, 90, 30));
+        btnPicture.setText("Choose picture");
+        btnPicture.setkEndColor(new java.awt.Color(63, 120, 208));
+        btnPicture.setkHoverEndColor(new java.awt.Color(255, 255, 255));
+        btnPicture.setkHoverForeGround(new java.awt.Color(0, 0, 0));
+        btnPicture.setkHoverStartColor(new java.awt.Color(255, 255, 255));
+        btnPicture.setkStartColor(new java.awt.Color(111, 122, 140));
+        kGradientPanel1.add(btnPicture, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 340, 90, 30));
 
         btnClear.setText("Clear");
         btnClear.setkEndColor(new java.awt.Color(63, 120, 208));
@@ -286,6 +286,7 @@ public class SignupDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private keeptoo.KButton btnAdd;
     private keeptoo.KButton btnClear;
+    private keeptoo.KButton btnPicture;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -296,7 +297,6 @@ public class SignupDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
-    private keeptoo.KButton kButton2;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JRadioButton rdbFemale;
     private javax.swing.JRadioButton rdbMale;

@@ -305,7 +305,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="keeptoo.KButton" name="kButton2">
+        <Component class="keeptoo.KButton" name="btnPicture">
           <Properties>
             <Property name="text" type="java.lang.String" value="Choose picture"/>
             <Property name="kEndColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
