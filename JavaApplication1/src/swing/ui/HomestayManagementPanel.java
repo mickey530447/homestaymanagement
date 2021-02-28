@@ -64,6 +64,11 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
 
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/ui/images/icons8_save_20px.png"))); // NOI18N
         btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/ui/images/icons8_edit_20px_1.png"))); // NOI18N
         btnEdit.setText("Edit");
@@ -299,6 +304,11 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
     private void chkParkingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkParkingActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_chkParkingActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnSaveActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

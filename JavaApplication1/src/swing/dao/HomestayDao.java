@@ -8,54 +8,33 @@ package swing.dao;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import javax.sql.rowset.serial.SerialBlob;
 import swing.helpers.DatabaseHelper;
+import swing.model.Homestay;
 import swing.model.User;
 
 /**
  *
  * @author Emi Tiramis
  */
-public class UserDao {
-
-    public User checkLogin(String telephone, String password) throws Exception {
-        String sql = "select telephone, password from [User] where "
-                + " telephone=? and password=?";
-        try (
-                Connection con = DatabaseHelper.openConnection();
-                PreparedStatement pstmt = con.prepareStatement(sql);
-                ) {
-            pstmt.setString(1, telephone);
-            pstmt.setString(2, password);
-            
-            try(ResultSet rs = pstmt.executeQuery();){
-                if (rs.next()) {
-                    User u = new User();
-                    u.setTelephone(telephone);
-                    return u;
-                }
-            }
-        }
-        return null;
-    }
-    public boolean insertUser(User u) throws Exception {
+public class HomestayDao {
+    public boolean insertHomestay(Homestay home) throws Exception {
         
-        String sql = "INSERT INTO [User](Telephone,FirstName,LastName,Address,Country,Sex,Password,Picture)" +
+        String sql = "INSERT INTO [Homestay](Telephone,FirstName,LastName,Address,Country,Sex,Password,Picture)" +
                 "VALUES(?,?,?,?,?,?,?,?)";
         try (
                 Connection con = DatabaseHelper.openConnection();
                 PreparedStatement pstmt = con.prepareStatement(sql);
                 ) {
-            pstmt.setString(1, u.getTelephone());
-            pstmt.setString(2, u.getFirstName());
-            pstmt.setString(3, u.getLastName());
-            pstmt.setString(4, u.getAddress());
-            pstmt.setString(5, u.getCountry());
-            pstmt.setInt(6, u.getSex());
-            pstmt.setString(7, u.getPassword());
-            if (u.getPicture() != null) {
-                Blob picture = new SerialBlob(u.getPicture());
+            pstmt.setString(1, home.getTelephone());
+            pstmt.setString(2, home.getFirstName());
+            pstmt.setString(3, home.getLastName());
+            pstmt.setString(4, home.getAddress());
+            pstmt.setString(5, home.getCountry());
+            pstmt.setInt(6, home.getSex());
+            pstmt.setString(7, home.getPassword());
+            if (home.getPicture() != null) {
+                Blob picture = new SerialBlob(home.getPicture());
                 pstmt.setBlob(8, picture);
             } else{
                 Blob picture = null;
@@ -64,19 +43,19 @@ public class UserDao {
             return pstmt.executeUpdate() > 0;
         }
     }
-    public boolean updateUser(User u) throws Exception {
+    public boolean updateUser(Homestay home) throws Exception {
         
         
-        String sql = "UPDATE [User]" +
+        String sql = "UPDATE [Homestay]" +
                 " SET FirstName = ?,LastName = ?,Address = ?,Country = ?,Sex = ?,Password = ?,Picture = ?" +
                 " WHERE Telephone = ?";
         try (
                 Connection con = DatabaseHelper.openConnection();
                 PreparedStatement pstmt = con.prepareStatement(sql);
                 ) {
-            pstmt.setString(8, u.getTelephone());
-            pstmt.setString(1, u.getFirstName());
-            pstmt.setString(2, u.getLastName());
+            pstmt.setString(8, home.getTelephone());
+            pstmt.setString(1, home.getFirstName());
+            pstmt.setString(2, home.getLastName());
             pstmt.setString(3, u.getAddress());
             pstmt.setString(4, u.getCountry());
             pstmt.setInt(5, u.getSex());

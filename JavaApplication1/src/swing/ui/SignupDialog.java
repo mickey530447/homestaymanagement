@@ -5,6 +5,7 @@
  */
 package swing.ui;
 
+import javax.swing.JOptionPane;
 import swing.dao.UserDao;
 import swing.helpers.DataValidator;
 import swing.helpers.MessageDialogHelper;
@@ -214,7 +215,9 @@ public class SignupDialog extends javax.swing.JDialog {
             MessageDialogHelper.showErrorDialog(null, sb.toString(), "Error");
             return;
         }
-
+        if (MessageDialogHelper.showConfirmDialog(null, "Confirm?", "Question") == JOptionPane.NO_OPTION){
+            return;
+        }
         try {
             User u = new User();
             u.setFirstName(txtFirstName.getText());
