@@ -19,7 +19,6 @@ import swing.model.User;
  */
 public class HomestayDao {
     public boolean insertHomestay(Homestay home) throws Exception {
-
         String sql = "INSERT INTO [Homestay](Telephone,Name,Address,Price,Picture)" +
                 "VALUES(?,?,?,?,?)";
         try (
@@ -40,6 +39,7 @@ public class HomestayDao {
             return pstmt.executeUpdate() > 0;
         }
     }
+    
     public boolean updateUser(Homestay home) throws Exception {
         
         
