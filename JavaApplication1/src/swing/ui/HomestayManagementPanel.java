@@ -344,12 +344,44 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
         if (MessageDialogHelper.showConfirmDialog(null, "Confirm?", "Are you sure?") == JOptionPane.NO_OPTION){
             return;
         }
+        StringBuilder ame = new StringBuilder();
+        if (chkKitchen.isSelected()) {
+            ame.append(chkKitchen.getText() + ", ");
+        }
+        if (chkWifi.isSelected()) {
+            ame.append(chkWifi.getText() + ", ");
+        }
+        if (chkParking.isSelected()) {
+            ame.append(chkParking.getText() + ", ");
+        }
+        if (chkElevator.isSelected()) {
+            ame.append(chkElevator.getText() + ", ");
+        }
+        if (chkAC.isSelected()) {
+            ame.append(chkAC.getText() + ", ");
+        }
+        if (chkSmoke.isSelected()) {
+            ame.append(chkSmoke.getText() + ", ");
+        }
+        if (chkFirstAid.isSelected()) {
+            ame.append(chkFirstAid.getText() + ", ");
+        }
+        if (chkMicrowave.isSelected()) {
+            ame.append(chkMicrowave.getText() + ", ");
+        }
+        if (chkStove.isSelected()) {
+            ame.append(chkStove.getText() + ", ");
+        }
+        
+//        JOptionPane.showMessageDialog(null, ame.toString().substring(0, ame.toString().length() - 2));
+        
         try {
             Homestay home = new Homestay();
             home.setTelephone(u.getTelephone());
             home.setName(txtName.getText());
             home.setAddress(txtAddress.getText());
             home.setPrice(Double.parseDouble(txtPrice.getText()));
+            home.setAmenities(ame.toString().substring(0, ame.toString().length() - 2));
             HomestayDao dao = new HomestayDao();
             if (dao.insertHomestay(home)){
                 MessageDialogHelper.showMessageDialog(null, "Saved", "Information");

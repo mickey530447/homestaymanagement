@@ -19,8 +19,8 @@ import swing.model.User;
  */
 public class HomestayDao {
     public boolean insertHomestay(Homestay home) throws Exception {
-        String sql = "INSERT INTO [Homestay](Telephone,Name,Address,Price,Picture)" +
-                "VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO [Homestay](Telephone,Name,Address,Price,Picture,Amenities)" +
+                "VALUES(?,?,?,?,?,?)";
         try (
                 Connection con = DatabaseHelper.openConnection();
                 PreparedStatement pstmt = con.prepareStatement(sql);
@@ -36,6 +36,7 @@ public class HomestayDao {
                 Blob picture = null;
                 pstmt.setBlob(5, picture);
             }
+            pstmt.setString(6, home.getAmenities());
             return pstmt.executeUpdate() > 0;
         }
     }
@@ -44,13 +45,13 @@ public class HomestayDao {
         
         
         String sql = "UPDATE [Homestay]" +
-                " SET Name = ?,Address = ?,Price = ?,Picture = ?" +
+                " SET Name = ?,Address = ?,Price = ?,Picture = ?,Amenities = ?" +
                 " WHERE Telephone = ?";
         try (
                 Connection con = DatabaseHelper.openConnection();
                 PreparedStatement pstmt = con.prepareStatement(sql);
                 ) {
-            pstmt.setString(5, home.getTelephone());
+            pstmt.setString(6, home.getTelephone());
             pstmt.setString(1, home.getName());
             pstmt.setString(2, home.getAddress());
             pstmt.setDouble(3, home.getPrice());
@@ -61,6 +62,7 @@ public class HomestayDao {
                 Blob picture = null;
                 pstmt.setBlob(4, picture);
             }
+            pstmt.setString(5, home.getAmenities());
             return pstmt.executeUpdate() > 0;
         }
     }

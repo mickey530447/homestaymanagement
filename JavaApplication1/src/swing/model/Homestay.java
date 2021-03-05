@@ -10,20 +10,31 @@ package swing.model;
  * @author Emi Tiramis
  */
 public class Homestay {
-    private String telephone,name,address;
+    private String telephone,name,address,amenities;
+
+    public String getAmenities() {
+        return amenities;
+    }
+
+    public void setAmenities(String amenities) {
+        this.amenities = amenities;
+    }
     private double price;
     private byte[] picture;
 
     public Homestay() {
     }
 
-    public Homestay(String telephone, String name, String address, double price, byte[] picture) {
+    public Homestay(String telephone, String name, String address, String amenities, double price, byte[] picture) {
         this.telephone = telephone;
         this.name = name;
         this.address = address;
+        this.amenities = amenities;
         this.price = price;
         this.picture = picture;
     }
+
+    
 
     public String getTelephone() {
         return telephone;
