@@ -41,7 +41,7 @@ public class HomestayDao {
         }
     }
     
-    public boolean updateUser(Homestay home) throws Exception {
+    public boolean updateHomestay(Homestay home) throws Exception {
         
         
         String sql = "UPDATE [Homestay]" +
@@ -63,6 +63,19 @@ public class HomestayDao {
                 pstmt.setBlob(4, picture);
             }
             pstmt.setString(5, home.getAmenities());
+            return pstmt.executeUpdate() > 0;
+        }
+    }
+    
+    public boolean deleteHomestay(Homestay home) throws Exception{
+        String sql = "delete from [Homestay]" + 
+                " where id = ?";
+        try (
+            Connection con = DatabaseHelper.openConnection();
+            PreparedStatement pstmt = con.prepareStatement(sql);
+                ){
+            pstmt.setString(1, home.get);
+            
             return pstmt.executeUpdate() > 0;
         }
     }

@@ -107,6 +107,11 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
 
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/ui/images/icons8_delete_20px.png"))); // NOI18N
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         txtName.setForeground(new java.awt.Color(255, 255, 255));
         txtName.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -394,6 +399,69 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
             
         }
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        StringBuilder sb = new StringBuilder();
+        DataValidator.validateEmpty(txtName, sb, "Missing name");
+        DataValidator.validateEmpty(txtPrice, sb, "Missing price");
+        DataValidator.validateEmpty(txtAddress, sb, "Missing address");
+        if (sb.length() > 0){
+            MessageDialogHelper.showErrorDialog(null, sb.toString(), "Error");
+            return;
+        }
+        if (MessageDialogHelper.showConfirmDialog(null, "Confirm?", "Are you sure?") == JOptionPane.NO_OPTION){
+            return;
+        }
+        StringBuilder ame = new StringBuilder();
+        if (chkKitchen.isSelected()) {
+            ame.append(chkKitchen.getText() + ", ");
+        }
+        if (chkWifi.isSelected()) {
+            ame.append(chkWifi.getText() + ", ");
+        }
+        if (chkParking.isSelected()) {
+            ame.append(chkParking.getText() + ", ");
+        }
+        if (chkElevator.isSelected()) {
+            ame.append(chkElevator.getText() + ", ");
+        }
+        if (chkAC.isSelected()) {
+            ame.append(chkAC.getText() + ", ");
+        }
+        if (chkSmoke.isSelected()) {
+            ame.append(chkSmoke.getText() + ", ");
+        }
+        if (chkFirstAid.isSelected()) {
+            ame.append(chkFirstAid.getText() + ", ");
+        }
+        if (chkMicrowave.isSelected()) {
+            ame.append(chkMicrowave.getText() + ", ");
+        }
+        if (chkStove.isSelected()) {
+            ame.append(chkStove.getText() + ", ");
+        }
+        
+//        JOptionPane.showMessageDialog(null, ame.toString().substring(0, ame.toString().length() - 2));
+        
+        try {
+            Homestay home = new Homestay();
+            home.setTelephone(u.getTelephone());
+            home.setName(txtName.getText());
+            home.setAddress(txtAddress.getText());
+            home.setPrice(Double.parseDouble(txtPrice.getText()));
+            home.setAmenities(ame.toString().substring(0, ame.toString().length() - 2));
+            HomestayDao dao = new HomestayDao();
+            if (dao.insertHomestay(home)){
+                MessageDialogHelper.showMessageDialog(null, "Saved", "Information");
+            } else {
+                MessageDialogHelper.showConfirmDialog(null, "Cannot saved", "Warning");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            MessageDialogHelper.showErrorDialog(null, e.getMessage(), "Error");
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
