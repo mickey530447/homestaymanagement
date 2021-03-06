@@ -8,6 +8,7 @@ package swing.dao;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.sql.rowset.serial.SerialBlob;
 import swing.helpers.DatabaseHelper;
 import swing.model.Homestay;
@@ -67,14 +68,14 @@ public class HomestayDao {
         }
     }
     
-    public boolean deleteHomestay(Homestay home) throws Exception{
+    public boolean deleteHomestay(ResultSet rs) throws Exception{
         String sql = "delete from [Homestay]" + 
                 " where id = ?";
         try (
             Connection con = DatabaseHelper.openConnection();
             PreparedStatement pstmt = con.prepareStatement(sql);
                 ){
-            pstmt.setString(1, home.get);
+            pstmt.setString(1, rs.getInt("ID")+ "");
             
             return pstmt.executeUpdate() > 0;
         }
