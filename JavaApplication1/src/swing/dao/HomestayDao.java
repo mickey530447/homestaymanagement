@@ -9,8 +9,11 @@ import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.sql.rowset.serial.SerialBlob;
+import javax.swing.JOptionPane;
 import swing.helpers.DatabaseHelper;
+import swing.helpers.SharedData;
 import swing.model.Homestay;
 import swing.model.User;
 
@@ -19,6 +22,9 @@ import swing.model.User;
  * @author Emi Tiramis
  */
 public class HomestayDao {
+    
+    public User u = SharedData.u;
+    
     public boolean insertHomestay(Homestay home) throws Exception {
         String sql = "INSERT INTO [Homestay](Telephone,Name,Address,Price,Picture,Amenities)" +
                 "VALUES(?,?,?,?,?,?)";
@@ -79,5 +85,20 @@ public class HomestayDao {
             
             return pstmt.executeUpdate() > 0;
         }
+    }
+    public void showHomestay() throws Exception{
+        String sql = "select * from [Homestay]" + 
+                " where telephone = ?";
+        Connection con = DatabaseHelper.openConnection();
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        pstmt.setString(1, u.getTelephone());
+        ResultSet rs = pstmt.executeQuery();
+        
+//        StringBuilder sb = new StringBuilder();
+        while (rs.next()){
+//            String name = rs.getString("Name");
+//            sb.append(name + "\n");
+        }
+//        JOptionPane.showMessageDialog(null, sb);
     }
 }
