@@ -5,7 +5,12 @@
  */
 package swing.ui;
 
+import java.awt.Color;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
 import swing.dao.HomestayDao;
 import swing.helpers.DataValidator;
@@ -20,6 +25,7 @@ import swing.model.User;
  */
 public class HomestayManagementPanel extends javax.swing.JPanel {
     public User u = SharedData.u;
+    ResultSet rs;
     /**
      * Creates new form HomestayManagementPanel
      */
@@ -27,13 +33,31 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
         initComponents();
         try {
             HomestayDao dao = new HomestayDao();
-            dao.showHomestay();
+            rs = dao.showHomestay();
+            rs.next();
+            txtDetailName.setText(rs.getString("Name"));
+            txtDetailAddress.setText(rs.getString("Address"));
+            txtDetailPrice.setText(rs.getString("Price").substring(0,rs.getString("Price").length() - 5) + " VND");
+            txtDetailTelephone.setText(rs.getString("Telephone"));
+            txtAreaDetailMenities.setText(rs.getString("Amenities"));
         } catch (Exception e) {
             e.printStackTrace();
             MessageDialogHelper.showErrorDialog(null, e.getMessage(), "Error");
         }
     }
-
+    
+    public void showDetail(ResultSet rs){
+        try {
+            txtDetailName.setText(rs.getString("Name"));
+            txtDetailAddress.setText(rs.getString("Address"));
+            txtDetailPrice.setText(rs.getString("Price").substring(0,rs.getString("Price").length() - 5) + " VND");
+            txtDetailTelephone.setText(rs.getString("Telephone"));
+            txtAreaDetailMenities.setText(rs.getString("Amenities"));
+//            home.setAmenities(ame.toString().substring(0, ame.toString().length() - 2));
+        } catch (SQLException ex) {
+            Logger.getLogger(HomestayManagementPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,12 +70,10 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
         kGradientPanel1 = new keeptoo.KGradientPanel();
         chkStove = new javax.swing.JCheckBox();
         btnSave = new javax.swing.JButton();
-        btnEdit = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnClear = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
-        btnDelete = new javax.swing.JButton();
         txtName = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtPrice = new javax.swing.JTextField();
@@ -69,7 +91,21 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         txtAddress = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        txtDetailName = new javax.swing.JTextField();
+        txtDetailAddress = new javax.swing.JTextField();
+        txtDetailPrice = new javax.swing.JTextField();
+        txtDetailTelephone = new javax.swing.JTextField();
+        btnPreDetail = new javax.swing.JButton();
+        btnNextDetail = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtAreaDetailMenities = new javax.swing.JTextArea();
+        btnDelete = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
 
         kGradientPanel1.setkEndColor(new java.awt.Color(63, 120, 208));
         kGradientPanel1.setkStartColor(new java.awt.Color(39, 56, 83));
@@ -86,9 +122,6 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
             }
         });
 
-        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/ui/images/icons8_edit_20px_1.png"))); // NOI18N
-        btnEdit.setText("Edit");
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Manage your place");
@@ -98,14 +131,6 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
 
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Name");
-
-        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/ui/images/icons8_delete_20px.png"))); // NOI18N
-        btnDelete.setText("Delete");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
 
         txtName.setForeground(new java.awt.Color(255, 255, 255));
         txtName.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
@@ -185,24 +210,72 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
         txtAddress.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         txtAddress.setOpaque(false);
 
-        jLabel2.setText("Number of result");
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(217, 217, 217)
-                .addComponent(jLabel2)
-                .addContainerGap(225, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(190, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(27, 27, 27))
-        );
+        jLabel8.setText("Name: ");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 14, -1, -1));
+
+        jLabel9.setText("Address:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 45, -1, -1));
+
+        jLabel10.setText("Price:");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 76, -1, -1));
+
+        jLabel11.setText("Telephone:");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 107, -1, -1));
+
+        jLabel12.setText("Amenities:");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 138, -1, -1));
+
+        txtDetailName.setEditable(false);
+        jPanel1.add(txtDetailName, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 11, 216, -1));
+
+        txtDetailAddress.setEditable(false);
+        jPanel1.add(txtDetailAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 42, 216, -1));
+
+        txtDetailPrice.setEditable(false);
+        jPanel1.add(txtDetailPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(81, 73, 216, -1));
+
+        txtDetailTelephone.setEditable(false);
+        jPanel1.add(txtDetailTelephone, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 104, 215, -1));
+
+        btnPreDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/ui/images/icons8_chevron_left_20px.png"))); // NOI18N
+        btnPreDetail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPreDetailActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnPreDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, -1, -1));
+
+        btnNextDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/ui/images/icons8_chevron_right_20px.png"))); // NOI18N
+        btnNextDetail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNextDetailActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnNextDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, -1, -1));
+
+        txtAreaDetailMenities.setEditable(false);
+        txtAreaDetailMenities.setColumns(20);
+        txtAreaDetailMenities.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        txtAreaDetailMenities.setRows(5);
+        txtAreaDetailMenities.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
+        jScrollPane1.setViewportView(txtAreaDetailMenities);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 220, 50));
+
+        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/ui/images/icons8_delete_20px.png"))); // NOI18N
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 200, -1, -1));
+
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/ui/images/icons8_edit_20px_1.png"))); // NOI18N
+        btnEdit.setText("Edit");
+        jPanel1.add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, -1, -1));
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
@@ -220,10 +293,6 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
                             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                 .addComponent(btnClear)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnDelete)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnEdit)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnSave))
                             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,23 +313,21 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
                                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(chkStove)
                                             .addComponent(chkSmoke)))))
-                            .addComponent(btnPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 145, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
-                                .addGap(37, 37, 37)
-                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtPrice)
-                                    .addComponent(txtName)))
-                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(25, 25, 25)
-                                .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 129, Short.MAX_VALUE))))
+                            .addComponent(btnPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                            .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel4))
+                            .addGap(37, 37, 37)
+                            .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtPrice)
+                                .addComponent(txtName)))
+                        .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel7)
+                            .addGap(25, 25, 25)
+                            .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
@@ -273,8 +340,8 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
                                 .addComponent(jLabel1))
                             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                 .addGap(30, 30, 30)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 15, Short.MAX_VALUE)))
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 14, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         kGradientPanel1Layout.setVerticalGroup(
@@ -320,12 +387,10 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
                 .addGap(34, 34, 34)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
-                    .addComponent(btnEdit)
-                    .addComponent(btnClear)
-                    .addComponent(btnDelete))
+                    .addComponent(btnClear))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -393,9 +458,6 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
         if (chkStove.isSelected()) {
             ame.append(chkStove.getText() + ", ");
         }
-        
-//        JOptionPane.showMessageDialog(null, ame.toString().substring(0, ame.toString().length() - 2));
-        
         try {
             Homestay home = new Homestay();
             home.setTelephone(u.getTelephone());
@@ -418,73 +480,57 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        StringBuilder sb = new StringBuilder();
-        DataValidator.validateEmpty(txtName, sb, "Missing name");
-        DataValidator.validateEmpty(txtPrice, sb, "Missing price");
-        DataValidator.validateEmpty(txtAddress, sb, "Missing address");
-        if (sb.length() > 0){
-            MessageDialogHelper.showErrorDialog(null, sb.toString(), "Error");
-            return;
-        }
         if (MessageDialogHelper.showConfirmDialog(null, "Confirm?", "Are you sure?") == JOptionPane.NO_OPTION){
             return;
         }
-        StringBuilder ame = new StringBuilder();
-        if (chkKitchen.isSelected()) {
-            ame.append(chkKitchen.getText() + ", ");
-        }
-        if (chkWifi.isSelected()) {
-            ame.append(chkWifi.getText() + ", ");
-        }
-        if (chkParking.isSelected()) {
-            ame.append(chkParking.getText() + ", ");
-        }
-        if (chkElevator.isSelected()) {
-            ame.append(chkElevator.getText() + ", ");
-        }
-        if (chkAC.isSelected()) {
-            ame.append(chkAC.getText() + ", ");
-        }
-        if (chkSmoke.isSelected()) {
-            ame.append(chkSmoke.getText() + ", ");
-        }
-        if (chkFirstAid.isSelected()) {
-            ame.append(chkFirstAid.getText() + ", ");
-        }
-        if (chkMicrowave.isSelected()) {
-            ame.append(chkMicrowave.getText() + ", ");
-        }
-        if (chkStove.isSelected()) {
-            ame.append(chkStove.getText() + ", ");
-        }
-        
-//        JOptionPane.showMessageDialog(null, ame.toString().substring(0, ame.toString().length() - 2));
-        
         try {
-            Homestay home = new Homestay();
-            home.setTelephone(u.getTelephone());
-            home.setName(txtName.getText());
-            home.setAddress(txtAddress.getText());
-            home.setPrice(Double.parseDouble(txtPrice.getText()));
-            home.setAmenities(ame.toString().substring(0, ame.toString().length() - 2));
             HomestayDao dao = new HomestayDao();
-            if (dao.insertHomestay(home)){
-                MessageDialogHelper.showMessageDialog(null, "Saved", "Information");
-            } else {
-                MessageDialogHelper.showConfirmDialog(null, "Cannot saved", "Warning");
-            }
+            dao.deleteHomestay(txtDetailName);
         } catch (Exception e) {
             e.printStackTrace();
             MessageDialogHelper.showErrorDialog(null, e.getMessage(), "Error");
+        } finally{
+            txtDetailAddress.setText("");
+            txtAreaDetailMenities.setText("");
+            txtDetailName.setText("");
+            txtDetailPrice.setText("");
+            txtDetailTelephone.setText("");
+            
         }
+
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    private void btnNextDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextDetailActionPerformed
+        try {
+            if (rs.next()){
+                showDetail(rs);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            MessageDialogHelper.showErrorDialog(null, ex.getMessage(), "Error");
+        }
+        
+    }//GEN-LAST:event_btnNextDetailActionPerformed
+
+    private void btnPreDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreDetailActionPerformed
+        // TODO add your handling code here:
+        try {
+            if (rs.previous()){
+                showDetail(rs);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            MessageDialogHelper.showErrorDialog(null, ex.getMessage(), "Error");
+        }
+    }//GEN-LAST:event_btnPreDetailActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnNextDetail;
     private keeptoo.KButton btnPicture;
+    private javax.swing.JButton btnPreDetail;
     private javax.swing.JButton btnSave;
     private javax.swing.JCheckBox chkAC;
     private javax.swing.JCheckBox chkElevator;
@@ -496,16 +542,26 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
     private javax.swing.JCheckBox chkStove;
     private javax.swing.JCheckBox chkWifi;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private keeptoo.KGradientPanel kGradientPanel1;
     private javax.swing.JTextField txtAddress;
+    private javax.swing.JTextArea txtAreaDetailMenities;
+    private javax.swing.JTextField txtDetailAddress;
+    private javax.swing.JTextField txtDetailName;
+    private javax.swing.JTextField txtDetailPrice;
+    private javax.swing.JTextField txtDetailTelephone;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPrice;
     // End of variables declaration//GEN-END:variables

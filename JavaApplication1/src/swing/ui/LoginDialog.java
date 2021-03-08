@@ -52,6 +52,7 @@ public class LoginDialog extends javax.swing.JDialog {
         kGradientPanel1.setkStartColor(new java.awt.Color(39, 56, 83));
 
         txtUserName.setForeground(new java.awt.Color(255, 255, 255));
+        txtUserName.setText("0935659249");
         txtUserName.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         txtUserName.setOpaque(false);
         txtUserName.addActionListener(new java.awt.event.ActionListener() {
@@ -61,6 +62,7 @@ public class LoginDialog extends javax.swing.JDialog {
         });
 
         txtPassword.setForeground(new java.awt.Color(255, 255, 255));
+        txtPassword.setText("admin");
         txtPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         txtPassword.setOpaque(false);
 

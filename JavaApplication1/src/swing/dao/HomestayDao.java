@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import swing.helpers.DatabaseHelper;
 import swing.helpers.SharedData;
 import swing.model.Homestay;
@@ -74,31 +75,24 @@ public class HomestayDao {
         }
     }
     
-    public boolean deleteHomestay(ResultSet rs) throws Exception{
+    public boolean deleteHomestay(JTextField jText) throws Exception{
         String sql = "delete from [Homestay]" + 
-                " where id = ?";
+                " where Name = ?";
         try (
             Connection con = DatabaseHelper.openConnection();
             PreparedStatement pstmt = con.prepareStatement(sql);
                 ){
-            pstmt.setString(1, rs.getInt("ID")+ "");
-            
+            pstmt.setString(1, jText.getText());           
             return pstmt.executeUpdate() > 0;
         }
     }
-    public void showHomestay() throws Exception{
+    public ResultSet showHomestay() throws Exception{
         String sql = "select * from [Homestay]" + 
                 " where telephone = ?";
         Connection con = DatabaseHelper.openConnection();
         PreparedStatement pstmt = con.prepareStatement(sql);
         pstmt.setString(1, u.getTelephone());
         ResultSet rs = pstmt.executeQuery();
-        
-//        StringBuilder sb = new StringBuilder();
-        while (rs.next()){
-//            String name = rs.getString("Name");
-//            sb.append(name + "\n");
-        }
-//        JOptionPane.showMessageDialog(null, sb);
+        return rs;
     }
 }
