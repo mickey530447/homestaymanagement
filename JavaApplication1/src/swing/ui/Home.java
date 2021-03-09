@@ -18,6 +18,7 @@ public class Home extends javax.swing.JFrame {
 
     private HomestayManagementPanel mHomestayPanel;
     private FindHomestayPanel mFindHomestayPanel;
+    private AccountPanel accountPanel;
     /**
      * Creates new form Home
      */
@@ -486,6 +487,10 @@ public class Home extends javax.swing.JFrame {
         setColor(btn_5);
         ind_5.setOpaque(true);
         resetColor(new JPanel[]{btn_1,btn_2,btn_3,btn_4,btn_6}, new JPanel[]{ind_1, ind_2, ind_3,ind_4,ind_6});
+        if (accountPanel == null) {
+            accountPanel = new AccountPanel();
+            tplMainBoard.addTab("Manage account", null, accountPanel, "Manage account");
+        }
 
     }//GEN-LAST:event_btn_5MousePressed
 

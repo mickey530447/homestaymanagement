@@ -56,12 +56,12 @@ public class HomestayDao {
         
         String sql = "UPDATE [Homestay]" +
                 " SET Name = ?,Address = ?,Price = ?,Picture = ?,Amenities = ?" +
-                " WHERE Telephone = ?";
+                " WHERE ID = ?";
         try (
                 Connection con = DatabaseHelper.openConnection();
                 PreparedStatement pstmt = con.prepareStatement(sql);
                 ) {
-            pstmt.setString(6, home.getTelephone());
+            pstmt.setString(6, home.getID());
             pstmt.setString(1, home.getName());
             pstmt.setString(2, home.getAddress());
             pstmt.setDouble(3, home.getPrice());
@@ -104,6 +104,7 @@ public class HomestayDao {
                 home.setPrice(Double.parseDouble(rs.getString("Price").substring(0,rs.getString("Price").length() - 4)));
                 home.setTelephone(rs.getString("Telephone"));
                 home.setAmenities(rs.getString("Amenities"));
+                home.setID(rs.getString("ID"));
                 list.add(home);
             }
             return list;
@@ -131,7 +132,29 @@ public class HomestayDao {
                 }
                 return list;
             }
-            
+        }
+    }
+    public List<Homestay> findPlaceByName(JTextField jt) throws Exception{
+        String sql = "select * from [Homestay]" +
+                " where Name = ?";
+        try(
+                Connection con = DatabaseHelper.openConnection();
+                PreparedStatement pstmt = con.prepareStatement(sql);
+                ){
+            pstmt.setString(1, jt.getText());
+            try (ResultSet rs = pstmt.executeQuery();) {
+                List<Homestay> list = new ArrayList<>();
+                while (rs.next()){
+                    Homestay home = new Homestay();
+                    home.setAddress(rs.getString("Address"));
+                    home.setName(rs.getString("Name"));
+                    home.setPrice(Double.parseDouble(rs.getString("Price").substring(0,rs.getString("Price").length() - 4)));
+                    home.setTelephone(rs.getString("Telephone"));
+                    home.setAmenities(rs.getString("Amenities"));
+                    list.add(home);
+                }
+                return list;
+            }
         }
     }
 }

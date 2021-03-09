@@ -11,7 +11,7 @@ package swing.model;
  */
 public class Homestay {
     private String telephone,name,address,amenities;
-
+    private String ID;
     public String getAmenities() {
         return amenities;
     }
@@ -32,6 +32,14 @@ public class Homestay {
         this.amenities = amenities;
         this.price = price;
         this.picture = picture;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
     

@@ -26,9 +26,12 @@ import swing.model.User;
  * @author Emi Tiramis
  */
 public class HomestayManagementPanel extends javax.swing.JPanel {
+
     public User u = SharedData.u;
     List<Homestay> list;
     int i = 0;
+    String id;
+
     /**
      * Creates new form HomestayManagementPanel
      */
@@ -43,19 +46,21 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
             MessageDialogHelper.showErrorDialog(null, e.getMessage(), "Error");
         }
     }
-    
-    public void showDetail(int i){
+
+    public void showDetail(int i) {
         try {
             txtDetailName.setText(list.get(i).getName());
             txtDetailAddress.setText(list.get(i).getAddress());
-            txtDetailPrice.setText(list.get(i).getPrice()+ " VND");
+            txtDetailPrice.setText(list.get(i).getPrice() + " VND");
             txtDetailTelephone.setText(list.get(i).getTelephone());
             txtAreaDetailMenities.setText(list.get(i).getAmenities());
+            id = list.get(i).getID();
         } catch (Exception ex) {
             ex.printStackTrace();
             MessageDialogHelper.showErrorDialog(null, ex.getMessage(), "Error");
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -104,6 +109,8 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
         txtAreaDetailMenities = new javax.swing.JTextArea();
         btnDelete = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
+        btnSaveChange = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
 
         kGradientPanel1.setkEndColor(new java.awt.Color(63, 120, 208));
         kGradientPanel1.setkStartColor(new java.awt.Color(39, 56, 83));
@@ -243,7 +250,7 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
                 btnPreDetailActionPerformed(evt);
             }
         });
-        jPanel1.add(btnPreDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, -1, -1));
+        jPanel1.add(btnPreDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
 
         btnNextDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/ui/images/icons8_chevron_right_20px.png"))); // NOI18N
         btnNextDetail.addActionListener(new java.awt.event.ActionListener() {
@@ -251,7 +258,7 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
                 btnNextDetailActionPerformed(evt);
             }
         });
-        jPanel1.add(btnNextDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, -1, -1));
+        jPanel1.add(btnNextDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, -1, -1));
 
         txtAreaDetailMenities.setEditable(false);
         txtAreaDetailMenities.setColumns(20);
@@ -269,11 +276,33 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
                 btnDeleteActionPerformed(evt);
             }
         });
-        jPanel1.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 200, -1, -1));
+        jPanel1.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 200, -1, -1));
 
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/ui/images/icons8_edit_20px_1.png"))); // NOI18N
         btnEdit.setText("Edit");
-        jPanel1.add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, -1, -1));
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, -1, -1));
+
+        btnSaveChange.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/ui/images/icons8_save_20px.png"))); // NOI18N
+        btnSaveChange.setText("Save change");
+        btnSaveChange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveChangeActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnSaveChange, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, -1, -1));
+
+        btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/ui/images/icons8_refresh_20px_1.png"))); // NOI18N
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
 
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
@@ -421,11 +450,11 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
         DataValidator.validateEmpty(txtName, sb, "Missing name");
         DataValidator.validateEmpty(txtPrice, sb, "Missing price");
         DataValidator.validateEmpty(txtAddress, sb, "Missing address");
-        if (sb.length() > 0){
+        if (sb.length() > 0) {
             MessageDialogHelper.showErrorDialog(null, sb.toString(), "Error");
             return;
         }
-        if (MessageDialogHelper.showConfirmDialog(null, "Confirm?", "Are you sure?") == JOptionPane.NO_OPTION){
+        if (MessageDialogHelper.showConfirmDialog(null, "Confirm?", "Are you sure?") == JOptionPane.NO_OPTION) {
             return;
         }
         StringBuilder ame = new StringBuilder();
@@ -459,12 +488,12 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
         try {
             Homestay home = new Homestay();
             home.setTelephone(u.getTelephone());
-            home.setName(txtName.getText());
-            home.setAddress(txtAddress.getText());
+            home.setName(txtName.getText().toUpperCase());
+            home.setAddress(txtAddress.getText().toUpperCase());
             home.setPrice(Double.parseDouble(txtPrice.getText()));
             home.setAmenities(ame.toString().substring(0, ame.toString().length() - 2));
             HomestayDao dao = new HomestayDao();
-            if (dao.insertHomestay(home)){
+            if (dao.insertHomestay(home)) {
                 MessageDialogHelper.showMessageDialog(null, "Saved", "Information");
             } else {
                 MessageDialogHelper.showConfirmDialog(null, "Cannot saved", "Warning");
@@ -472,13 +501,13 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
         } catch (Exception e) {
             e.printStackTrace();
             MessageDialogHelper.showErrorDialog(null, e.getMessage(), "Error");
-            
+
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        if (MessageDialogHelper.showConfirmDialog(null, "Confirm?", "Are you sure?") == JOptionPane.NO_OPTION){
+        if (MessageDialogHelper.showConfirmDialog(null, "Confirm?", "Do you want to delete this place?") == JOptionPane.NO_OPTION) {
             return;
         }
         try {
@@ -487,20 +516,23 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
         } catch (Exception e) {
             e.printStackTrace();
             MessageDialogHelper.showErrorDialog(null, e.getMessage(), "Error");
-        } finally{
+        } finally {
             txtDetailAddress.setText("");
             txtAreaDetailMenities.setText("");
             txtDetailName.setText("");
             txtDetailPrice.setText("");
             txtDetailTelephone.setText("");
-            
         }
 
     }//GEN-LAST:event_btnDeleteActionPerformed
-
+    private void clearTxt() {
+        txtName.setText("");
+        txtPrice.setText("");
+        txtAddress.setText("");
+    }
     private void btnNextDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextDetailActionPerformed
         try {
-            if (i < list.size() - 1){
+            if (i < list.size() - 1) {
                 i++;
                 showDetail(i);
             }
@@ -508,13 +540,13 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
             ex.printStackTrace();
             MessageDialogHelper.showErrorDialog(null, ex.getMessage(), "Error");
         }
-        
+
     }//GEN-LAST:event_btnNextDetailActionPerformed
 
     private void btnPreDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreDetailActionPerformed
         // TODO add your handling code here:
         try {
-            if (i > 0){
+            if (i > 0) {
                 i--;
                 showDetail(i);
             }
@@ -524,6 +556,61 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnPreDetailActionPerformed
 
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        // TODO add your handling code here:
+        txtDetailAddress.setEditable(true);
+        txtDetailName.setEditable(true);
+        txtDetailPrice.setEditable(true);
+        txtAreaDetailMenities.setEditable(true);
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnSaveChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveChangeActionPerformed
+        // TODO add your handling code here:
+        StringBuilder sb = new StringBuilder();
+        DataValidator.validateEmpty(txtDetailName, sb, "Missing name");
+        DataValidator.validateEmpty(txtDetailPrice, sb, "Missing price");
+        DataValidator.validateEmpty(txtDetailAddress, sb, "Missing address");
+        if (sb.length() > 0) {
+            MessageDialogHelper.showErrorDialog(null, sb.toString(), "Error");
+            return;
+        }
+        try {
+            Homestay home = new Homestay();
+            home.setName(txtDetailName.getText().toUpperCase());
+            home.setAddress(txtDetailAddress.getText().toUpperCase());
+            home.setPrice(Double.parseDouble(txtDetailPrice.getText()));
+            home.setAmenities(txtAreaDetailMenities.getText());
+            home.setID(id);
+            HomestayDao dao = new HomestayDao();
+            if (dao.updateHomestay(home)) {
+                MessageDialogHelper.showMessageDialog(null, "Saved", "Information");
+            } else {
+                MessageDialogHelper.showConfirmDialog(null, "Cannot saved", "Warning");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            MessageDialogHelper.showErrorDialog(null, e.getMessage(), "Error");
+
+        } finally{
+            txtDetailAddress.setEditable(false);
+            txtDetailName.setEditable(false);
+            txtDetailPrice.setEditable(false);
+            txtAreaDetailMenities.setEditable(false);
+        }
+    }//GEN-LAST:event_btnSaveChangeActionPerformed
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        // TODO add your handling code here:
+        try {
+            HomestayDao dao = new HomestayDao();
+            list = dao.showOwnerHomestay();
+            showDetail(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+            MessageDialogHelper.showErrorDialog(null, e.getMessage(), "Error");
+        }
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
@@ -531,7 +618,9 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnNextDetail;
     private keeptoo.KButton btnPicture;
     private javax.swing.JButton btnPreDetail;
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnSaveChange;
     private javax.swing.JCheckBox chkAC;
     private javax.swing.JCheckBox chkElevator;
     private javax.swing.JCheckBox chkFirstAid;

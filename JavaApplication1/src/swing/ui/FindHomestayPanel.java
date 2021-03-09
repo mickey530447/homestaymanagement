@@ -8,6 +8,8 @@ package swing.ui;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import swing.dao.HomestayDao;
 import swing.model.Homestay;
@@ -21,15 +23,17 @@ public class FindHomestayPanel extends javax.swing.JPanel {
      * Creates new form FindHomestayPanel
      */
     DefaultTableModel model;
-    Vector Vcolumn;
+    Vector vColumn = new Vector();
+    Vector vRow;
+    Vector vData = new Vector();
+    JTable table;
     public FindHomestayPanel() {
         initComponents();
-        Vcolumn = new Vector();
-        Vcolumn.add("Name");
-        Vcolumn.add("Address");
-        Vcolumn.add("Price");
-        Vcolumn.add("Amenities");
-        model = new DefaultTableModel(null, Vcolumn);
+        vColumn.add("Name");
+        vColumn.add("Address");
+        vColumn.add("Price");
+        vColumn.add("Amenities");
+        model = new DefaultTableModel(null, vColumn);
         jTable1.setModel(model);
     }
 
@@ -85,6 +89,11 @@ public class FindHomestayPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTable1MousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 500, 90));
@@ -96,6 +105,8 @@ public class FindHomestayPanel extends javax.swing.JPanel {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Price:");
         kGradientPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
+
+        txtAddress.setEditable(false);
         kGradientPanel1.add(txtAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 310, -1));
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -103,9 +114,16 @@ public class FindHomestayPanel extends javax.swing.JPanel {
         kGradientPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
         kGradientPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 480, -1));
         kGradientPanel1.add(txtFindByName, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 150, -1));
+
+        txtPrice.setEditable(false);
         kGradientPanel1.add(txtPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, 310, -1));
 
         btnSearchName.setText("Search");
+        btnSearchName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchNameActionPerformed(evt);
+            }
+        });
         kGradientPanel1.add(btnSearchName, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 60, -1, -1));
 
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -115,12 +133,15 @@ public class FindHomestayPanel extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Find by city:");
         kGradientPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
+
+        txtAmenities.setEditable(false);
         kGradientPanel1.add(txtAmenities, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 310, -1));
 
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Name:");
         kGradientPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
 
+        txtName.setEditable(false);
         txtName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNameActionPerformed(evt);
@@ -143,12 +164,24 @@ public class FindHomestayPanel extends javax.swing.JPanel {
     private void btnSearchCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchCityActionPerformed
         // TODO add your handling code here:
         List<Homestay> list = new ArrayList<>();
+        model.setRowCount(0);
+        clearTxt();
         try {
             Homestay home = new Homestay();
             HomestayDao dao = new HomestayDao();
             list = dao.findPlaceByCity(txtFindByCity);
-            txtName.setText(list.get(0).getName());
+            for (int i = 0; i < list.size(); i++){
+                vRow = new Vector();
+                vRow.add(list.get(i).getName());
+                vRow.add(list.get(i).getAddress());
+                vRow.add(list.get(i).getPrice());
+                vRow.add(list.get(i).getAmenities());
+                vData.add(vRow);
+            }
         } catch (Exception e) {
+        } finally{
+            model = new DefaultTableModel(vData, vColumn);
+            jTable1.setModel(model);
         }
     }//GEN-LAST:event_btnSearchCityActionPerformed
 
@@ -156,6 +189,47 @@ public class FindHomestayPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameActionPerformed
 
+    private void jTable1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MousePressed
+        // TODO add your handling code here:
+        clearTxt();
+        int index = jTable1.getSelectedRow();
+        Vector vRow = (Vector)vData.get(index);
+        txtName.setText(vRow.get(0).toString());
+        txtAddress.setText(vRow.get(1).toString());
+        txtPrice.setText(vRow.get(2).toString());
+        txtAmenities.setText(vRow.get(3).toString());
+    }//GEN-LAST:event_jTable1MousePressed
+
+    private void btnSearchNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchNameActionPerformed
+        // TODO add your handling code here:
+        List<Homestay> list = new ArrayList<>();
+        model.setRowCount(0);
+        clearTxt();
+        try {
+            Homestay home = new Homestay();
+            HomestayDao dao = new HomestayDao();
+            list = dao.findPlaceByName(txtFindByName);
+            for (int i = 0; i < list.size(); i++){
+                vRow = new Vector();
+                vRow.add(list.get(i).getName());
+                vRow.add(list.get(i).getAddress());
+                vRow.add(list.get(i).getPrice());
+                vRow.add(list.get(i).getAmenities());
+                vData.add(vRow);
+            }
+        } catch (Exception e) {
+        } finally{
+            model = new DefaultTableModel(vData, vColumn);
+            jTable1.setModel(model);
+        }
+    }//GEN-LAST:event_btnSearchNameActionPerformed
+
+    private  void clearTxt(){
+        txtName.setText("");
+        txtAddress.setText("");
+        txtPrice.setText("");
+        txtAmenities.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSearchCity;
