@@ -89,7 +89,7 @@ public class HomestayDao {
         }
     }
 
-    public List<Homestay> showAllHomestay1() throws Exception{
+    public List<Homestay> showOwnerHomestay() throws Exception{
         String sql = "select * from [Homestay]" + 
                 " where telephone = ?";
         Connection con = DatabaseHelper.openConnection();
@@ -107,6 +107,31 @@ public class HomestayDao {
                 list.add(home);
             }
             return list;
+        }
+    }
+    
+    public List<Homestay> findPlaceByCity(JTextField jt) throws Exception{
+        String sql = "select * from [Homestay]" +
+                " where Address = ?";
+        try(
+                Connection con = DatabaseHelper.openConnection();
+                PreparedStatement pstmt = con.prepareStatement(sql);
+                ){
+            pstmt.setString(1, jt.getText());
+            try (ResultSet rs = pstmt.executeQuery();) {
+                List<Homestay> list = new ArrayList<>();
+                while (rs.next()){
+                    Homestay home = new Homestay();
+                    home.setAddress(rs.getString("Address"));
+                    home.setName(rs.getString("Name"));
+                    home.setPrice(Double.parseDouble(rs.getString("Price").substring(0,rs.getString("Price").length() - 4)));
+                    home.setTelephone(rs.getString("Telephone"));
+                    home.setAmenities(rs.getString("Amenities"));
+                    list.add(home);
+                }
+                return list;
+            }
+            
         }
     }
 }

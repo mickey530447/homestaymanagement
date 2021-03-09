@@ -36,7 +36,7 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
         initComponents();
         try {
             HomestayDao dao = new HomestayDao();
-            list = dao.showAllHomestay1();
+            list = dao.showOwnerHomestay();
             showDetail(0);
         } catch (Exception e) {
             e.printStackTrace();

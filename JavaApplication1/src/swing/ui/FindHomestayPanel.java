@@ -5,17 +5,32 @@
  */
 package swing.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+import swing.dao.HomestayDao;
+import swing.model.Homestay;
+
 /**
  *
  * @author Emi Tiramis
  */
 public class FindHomestayPanel extends javax.swing.JPanel {
-
     /**
      * Creates new form FindHomestayPanel
      */
+    DefaultTableModel model;
+    Vector Vcolumn;
     public FindHomestayPanel() {
         initComponents();
+        Vcolumn = new Vector();
+        Vcolumn.add("Name");
+        Vcolumn.add("Address");
+        Vcolumn.add("Price");
+        Vcolumn.add("Amenities");
+        model = new DefaultTableModel(null, Vcolumn);
+        jTable1.setModel(model);
     }
 
     /**
@@ -28,28 +43,28 @@ public class FindHomestayPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         kGradientPanel1 = new keeptoo.KGradientPanel();
-        jTextField2 = new javax.swing.JTextField();
+        txtFindByCity = new javax.swing.JTextField();
         btnSearchCity = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtAddress = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        txtFindByName = new javax.swing.JTextField();
+        txtPrice = new javax.swing.JTextField();
         btnSearchName = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        txtAmenities = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        txtName = new javax.swing.JTextField();
 
         kGradientPanel1.setkEndColor(new java.awt.Color(63, 120, 208));
         kGradientPanel1.setkStartColor(new java.awt.Color(39, 56, 83));
         kGradientPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        kGradientPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 150, -1));
+        kGradientPanel1.add(txtFindByCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 150, -1));
 
         btnSearchCity.setText("Search");
         btnSearchCity.addActionListener(new java.awt.event.ActionListener() {
@@ -57,7 +72,7 @@ public class FindHomestayPanel extends javax.swing.JPanel {
                 btnSearchCityActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(btnSearchCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 90, -1, -1));
+        kGradientPanel1.add(btnSearchCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, -1, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -72,7 +87,7 @@ public class FindHomestayPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 500, 90));
+        kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 500, 90));
 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Address:");
@@ -81,17 +96,17 @@ public class FindHomestayPanel extends javax.swing.JPanel {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Price:");
         kGradientPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
-        kGradientPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 310, -1));
+        kGradientPanel1.add(txtAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 310, -1));
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Find by name:");
         kGradientPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
         kGradientPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 480, -1));
-        kGradientPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 150, -1));
-        kGradientPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, 310, -1));
+        kGradientPanel1.add(txtFindByName, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 150, -1));
+        kGradientPanel1.add(txtPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, 310, -1));
 
         btnSearchName.setText("Search");
-        kGradientPanel1.add(btnSearchName, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 60, -1, -1));
+        kGradientPanel1.add(btnSearchName, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 60, -1, -1));
 
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Amenities:");
@@ -100,38 +115,46 @@ public class FindHomestayPanel extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Find by city:");
         kGradientPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
-        kGradientPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 310, -1));
+        kGradientPanel1.add(txtAmenities, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 310, -1));
 
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Name:");
         kGradientPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
 
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+        txtName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
+                txtNameActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 310, -1));
+        kGradientPanel1.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 310, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSearchCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchCityActionPerformed
         // TODO add your handling code here:
+        List<Homestay> list = new ArrayList<>();
+        try {
+            Homestay home = new Homestay();
+            HomestayDao dao = new HomestayDao();
+            list = dao.findPlaceByCity(txtFindByCity);
+            txtName.setText(list.get(0).getName());
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_btnSearchCityActionPerformed
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
+    }//GEN-LAST:event_txtNameActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -146,12 +169,12 @@ public class FindHomestayPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private keeptoo.KGradientPanel kGradientPanel1;
+    private javax.swing.JTextField txtAddress;
+    private javax.swing.JTextField txtAmenities;
+    private javax.swing.JTextField txtFindByCity;
+    private javax.swing.JTextField txtFindByName;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtPrice;
     // End of variables declaration//GEN-END:variables
 }
