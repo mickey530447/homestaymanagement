@@ -5,11 +5,13 @@
  */
 package swing.dao;
 
+import java.util.List;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -86,13 +88,25 @@ public class HomestayDao {
             return pstmt.executeUpdate() > 0;
         }
     }
-    public ResultSet showHomestay() throws Exception{
+
+    public List<Homestay> showAllHomestay1() throws Exception{
         String sql = "select * from [Homestay]" + 
                 " where telephone = ?";
         Connection con = DatabaseHelper.openConnection();
         PreparedStatement pstmt = con.prepareStatement(sql);
         pstmt.setString(1, u.getTelephone());
-        ResultSet rs = pstmt.executeQuery();
-        return rs;
+        try(ResultSet rs = pstmt.executeQuery();){
+            List<Homestay> list = new ArrayList<>();
+            while (rs.next()){
+                Homestay home = new Homestay();
+                home.setAddress(rs.getString("Address"));
+                home.setName(rs.getString("Name"));
+                home.setPrice(Double.parseDouble(rs.getString("Price").substring(0,rs.getString("Price").length() - 4)));
+                home.setTelephone(rs.getString("Telephone"));
+                home.setAmenities(rs.getString("Amenities"));
+                list.add(home);
+            }
+            return list;
+        }
     }
 }

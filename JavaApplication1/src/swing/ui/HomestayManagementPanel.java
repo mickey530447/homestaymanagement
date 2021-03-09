@@ -8,6 +8,8 @@ package swing.ui;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JColorChooser;
@@ -25,7 +27,8 @@ import swing.model.User;
  */
 public class HomestayManagementPanel extends javax.swing.JPanel {
     public User u = SharedData.u;
-    ResultSet rs;
+    List<Homestay> list;
+    int i = 0;
     /**
      * Creates new form HomestayManagementPanel
      */
@@ -33,29 +36,24 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
         initComponents();
         try {
             HomestayDao dao = new HomestayDao();
-            rs = dao.showHomestay();
-            rs.next();
-            txtDetailName.setText(rs.getString("Name"));
-            txtDetailAddress.setText(rs.getString("Address"));
-            txtDetailPrice.setText(rs.getString("Price").substring(0,rs.getString("Price").length() - 5) + " VND");
-            txtDetailTelephone.setText(rs.getString("Telephone"));
-            txtAreaDetailMenities.setText(rs.getString("Amenities"));
+            list = dao.showAllHomestay1();
+            showDetail(0);
         } catch (Exception e) {
             e.printStackTrace();
             MessageDialogHelper.showErrorDialog(null, e.getMessage(), "Error");
         }
     }
     
-    public void showDetail(ResultSet rs){
+    public void showDetail(int i){
         try {
-            txtDetailName.setText(rs.getString("Name"));
-            txtDetailAddress.setText(rs.getString("Address"));
-            txtDetailPrice.setText(rs.getString("Price").substring(0,rs.getString("Price").length() - 5) + " VND");
-            txtDetailTelephone.setText(rs.getString("Telephone"));
-            txtAreaDetailMenities.setText(rs.getString("Amenities"));
-//            home.setAmenities(ame.toString().substring(0, ame.toString().length() - 2));
-        } catch (SQLException ex) {
-            Logger.getLogger(HomestayManagementPanel.class.getName()).log(Level.SEVERE, null, ex);
+            txtDetailName.setText(list.get(i).getName());
+            txtDetailAddress.setText(list.get(i).getAddress());
+            txtDetailPrice.setText(list.get(i).getPrice()+ " VND");
+            txtDetailTelephone.setText(list.get(i).getTelephone());
+            txtAreaDetailMenities.setText(list.get(i).getAmenities());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            MessageDialogHelper.showErrorDialog(null, ex.getMessage(), "Error");
         }
     }
     /**
@@ -502,8 +500,9 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
 
     private void btnNextDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextDetailActionPerformed
         try {
-            if (rs.next()){
-                showDetail(rs);
+            if (i < list.size() - 1){
+                i++;
+                showDetail(i);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -515,8 +514,9 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
     private void btnPreDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreDetailActionPerformed
         // TODO add your handling code here:
         try {
-            if (rs.previous()){
-                showDetail(rs);
+            if (i > 0){
+                i--;
+                showDetail(i);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
