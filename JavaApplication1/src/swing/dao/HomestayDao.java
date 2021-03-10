@@ -105,6 +105,8 @@ public class HomestayDao {
                 home.setTelephone(rs.getString("Telephone"));
                 home.setAmenities(rs.getString("Amenities"));
                 home.setID(rs.getString("ID"));
+                Blob blob = rs.getBlob("Picture");
+                home.setPicture(blob.getBytes(1, (int) blob.length()));
                 list.add(home);
             }
             return list;
@@ -128,6 +130,8 @@ public class HomestayDao {
                     home.setPrice(Double.parseDouble(rs.getString("Price").substring(0,rs.getString("Price").length() - 4)));
                     home.setTelephone(rs.getString("Telephone"));
                     home.setAmenities(rs.getString("Amenities"));
+                    Blob blob = rs.getBlob("Picture");
+                    home.setPicture(blob.getBytes(1, (int) blob.length()));
                     list.add(home);
                 }
                 return list;
@@ -151,6 +155,8 @@ public class HomestayDao {
                     home.setPrice(Double.parseDouble(rs.getString("Price").substring(0,rs.getString("Price").length() - 4)));
                     home.setTelephone(rs.getString("Telephone"));
                     home.setAmenities(rs.getString("Amenities"));
+                    Blob blob = rs.getBlob("Picture");
+                    home.setPicture(blob.getBytes(1, (int) blob.length()));
                     list.add(home);
                 }
                 return list;

@@ -6,16 +6,22 @@
 package swing.ui;
 
 import java.awt.Color;
+import java.awt.Image;
+import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JColorChooser;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
 import swing.dao.HomestayDao;
 import swing.helpers.DataValidator;
+import swing.helpers.ImageHelper;
 import swing.helpers.MessageDialogHelper;
 import swing.helpers.SharedData;
 import swing.model.Homestay;
@@ -31,6 +37,7 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
     List<Homestay> list;
     int i = 0;
     String id;
+    private byte[] personalImage;
 
     /**
      * Creates new form HomestayManagementPanel
@@ -54,6 +61,16 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
             txtDetailPrice.setText(list.get(i).getPrice() + " VND");
             txtDetailTelephone.setText(list.get(i).getTelephone());
             txtAreaDetailMenities.setText(list.get(i).getAmenities());
+            if (list.get(i).getPicture() != null){
+                Image img =ImageHelper.createImageFromByteArray(list.get(i).getPicture(), "jpg");
+                lblImage1.setIcon(new ImageIcon(img));
+                personalImage = list.get(i).getPicture();
+            } else {
+                personalImage = list.get(i).getPicture();
+                ImageIcon icon = new ImageIcon(
+                        getClass().getResource("/swing/ui/images/icons8_image_100px.png"));
+                lblImage1.setIcon(icon);
+            }
             id = list.get(i).getID();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -80,7 +97,6 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
         txtName = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtPrice = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         chkKitchen = new javax.swing.JCheckBox();
         chkWifi = new javax.swing.JCheckBox();
@@ -111,6 +127,12 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
         btnEdit = new javax.swing.JButton();
         btnSaveChange = new javax.swing.JButton();
         btnRefresh = new javax.swing.JButton();
+        lblImage1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        lblImage = new javax.swing.JLabel();
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         kGradientPanel1.setkEndColor(new java.awt.Color(63, 120, 208));
         kGradientPanel1.setkStartColor(new java.awt.Color(39, 56, 83));
@@ -133,6 +155,11 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
 
         btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/ui/images/icons8_erase_20px.png"))); // NOI18N
         btnClear.setText("Clear");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
 
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Name");
@@ -147,9 +174,6 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
         txtPrice.setForeground(new java.awt.Color(255, 255, 255));
         txtPrice.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         txtPrice.setOpaque(false);
-
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Picture");
 
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Amenities:");
@@ -207,6 +231,11 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
         btnPicture.setkHoverForeGround(new java.awt.Color(0, 0, 0));
         btnPicture.setkHoverStartColor(new java.awt.Color(255, 255, 255));
         btnPicture.setkStartColor(new java.awt.Color(111, 122, 140));
+        btnPicture.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPictureActionPerformed(evt);
+            }
+        });
 
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Address");
@@ -304,72 +333,88 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
         });
         jPanel1.add(btnRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
 
+        lblImage1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblImage1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/ui/images/icons8_image_100px_1.png"))); // NOI18N
+        jPanel1.add(lblImage1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 30, 190, 140));
+
+        jPanel2.setOpaque(false);
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel3.setOpaque(false);
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/ui/images/icons8_image_100px.png"))); // NOI18N
+        jPanel3.add(lblImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 190, 140));
+
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
-                        .addGap(14, 14, 14)
+                            .addComponent(jLabel1)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                .addComponent(btnClear)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnSave))
-                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(14, 14, 14)
+                                .addComponent(chkKitchen)
+                                .addGap(16, 16, 16)
                                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(chkFirstAid)
-                                    .addComponent(chkElevator)
-                                    .addComponent(chkKitchen))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                        .addGap(104, 104, 104)
+                                        .addComponent(chkStove))
                                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                         .addComponent(chkWifi)
-                                        .addGap(68, 68, 68)
-                                        .addComponent(chkParking))
+                                        .addGap(61, 61, 61)
+                                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(chkSmoke)
+                                            .addComponent(chkParking))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                    .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel3)
+                                        .addComponent(jLabel4))
+                                    .addGap(37, 37, 37)
+                                    .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtPrice)
+                                        .addComponent(txtName)))
+                                .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel7)
+                                    .addGap(25, 25, 25)
+                                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                .addGap(64, 64, 64)
+                                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(chkAC)
-                                            .addComponent(chkMicrowave))
-                                        .addGap(18, 18, 18)
+                                            .addComponent(chkFirstAid)
+                                            .addComponent(chkElevator))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(chkStove)
-                                            .addComponent(chkSmoke)))))
-                            .addComponent(btnPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                            .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel4))
-                            .addGap(37, 37, 37)
-                            .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtPrice)
-                                .addComponent(txtName)))
-                        .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel7)
-                            .addGap(25, 25, 25)
-                            .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jSeparator1))
+                                            .addComponent(chkAC)
+                                            .addComponent(chkMicrowave)))
+                                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                                        .addComponent(btnClear)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnSave)
+                                        .addGap(155, 155, 155)
+                                        .addComponent(btnPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(14, 14, 14))))))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(jLabel1))
-                            .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 14, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(30, 30, 30)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -377,8 +422,8 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
                 .addGap(23, 23, 23)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -391,45 +436,35 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
                     .addComponent(jLabel7)
                     .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(btnPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(chkKitchen)
+                            .addComponent(chkWifi)
+                            .addComponent(chkParking))
+                        .addGap(44, 44, 44)
+                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(chkSmoke)
+                            .addComponent(chkAC)
+                            .addComponent(chkElevator))
+                        .addGap(41, 41, 41)
+                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(chkFirstAid)
+                            .addComponent(chkMicrowave)
+                            .addComponent(chkStove)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(chkKitchen)
-                    .addComponent(chkWifi)
-                    .addComponent(chkParking))
-                .addGap(18, 18, 18)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(chkElevator)
-                        .addComponent(chkAC))
-                    .addComponent(chkSmoke))
-                .addGap(18, 18, 18)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(chkFirstAid)
-                    .addComponent(chkStove)
-                    .addComponent(chkMicrowave))
-                .addGap(34, 34, 34)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
-                    .addComponent(btnClear))
+                    .addComponent(btnClear)
+                    .addComponent(btnPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(kGradientPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, 682));
     }// </editor-fold>//GEN-END:initComponents
 
     private void chkACActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkACActionPerformed
@@ -492,6 +527,8 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
             home.setAddress(txtAddress.getText().toUpperCase());
             home.setPrice(Double.parseDouble(txtPrice.getText()));
             home.setAmenities(ame.toString().substring(0, ame.toString().length() - 2));
+            home.setPicture(personalImage);
+            
             HomestayDao dao = new HomestayDao();
             if (dao.insertHomestay(home)) {
                 MessageDialogHelper.showMessageDialog(null, "Saved", "Information");
@@ -502,6 +539,8 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
             e.printStackTrace();
             MessageDialogHelper.showErrorDialog(null, e.getMessage(), "Error");
 
+        } finally{
+            clearTxt();
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -529,6 +568,18 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
         txtName.setText("");
         txtPrice.setText("");
         txtAddress.setText("");
+        chkKitchen.setSelected(false);
+        chkWifi.setSelected(false);
+        chkParking.setSelected(false);
+        chkElevator.setSelected(false);
+        chkAC.setSelected(false);
+        chkSmoke.setSelected(false);
+        chkFirstAid.setSelected(false);
+        chkMicrowave.setSelected(false);
+        chkStove.setSelected(false);
+        personalImage = null;
+        ImageIcon icon = new ImageIcon(getClass().getResource("/swing/ui/images/icons8_image_100px.png"));
+        lblImage.setIcon(icon);
     }
     private void btnNextDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextDetailActionPerformed
         try {
@@ -611,6 +662,44 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnRefreshActionPerformed
 
+    private void btnPictureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPictureActionPerformed
+        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileFilter(new FileFilter() {
+            @Override
+            public boolean accept(File f) {
+                if (f.isDirectory()){
+                    return true;
+                } else{
+                    return f.getName().toLowerCase().endsWith(".jpg");
+                }
+            }
+            @Override
+            public String getDescription() {
+                return "Image File (*.jpg)";
+            }
+        });
+        if (chooser.showOpenDialog(null) == JFileChooser.CANCEL_OPTION){
+            return;
+        }
+        File file = chooser.getSelectedFile();
+        try {
+            ImageIcon icon = new ImageIcon(file.getPath());
+            Image img = ImageHelper.resize(icon.getImage(), 220, 180);
+            ImageIcon resizedIcon = new ImageIcon(img);
+            lblImage.setIcon(resizedIcon);
+            personalImage = ImageHelper.toByteArray(img, "jpg");
+        } catch (Exception e) {
+            e.printStackTrace();
+            MessageDialogHelper.showMessageDialog(null, e.getMessage(), "Error");
+        }
+    }//GEN-LAST:event_btnPictureActionPerformed
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        // TODO add your handling code here:
+        clearTxt();
+    }//GEN-LAST:event_btnClearActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
@@ -636,15 +725,18 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private keeptoo.KGradientPanel kGradientPanel1;
+    private javax.swing.JLabel lblImage;
+    private javax.swing.JLabel lblImage1;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextArea txtAreaDetailMenities;
     private javax.swing.JTextField txtDetailAddress;

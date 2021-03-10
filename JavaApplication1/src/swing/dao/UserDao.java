@@ -20,7 +20,7 @@ import swing.model.User;
 public class UserDao {
 
     public User checkLogin(String telephone, String password) throws Exception {
-        String sql = "select telephone, password from [User] where "
+        String sql = "select * from [User] where "
                 + " telephone=? and password=?";
         try (
                 Connection con = DatabaseHelper.openConnection();
@@ -33,6 +33,12 @@ public class UserDao {
                 if (rs.next()) {
                     User u = new User();
                     u.setTelephone(telephone);
+                    u.setFirstName(rs.getString("FirstName"));
+                    u.setLastName(rs.getString("LastName"));
+                    u.setAddress(rs.getString("Address"));
+                    u.setCountry(rs.getString("Country"));
+                    u.setSex(Integer.parseInt(rs.getString("Sex")));
+                    u.setPassword(password);
                     return u;
                 }
             }

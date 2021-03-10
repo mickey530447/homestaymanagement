@@ -5,17 +5,54 @@
  */
 package swing.ui;
 
+import javax.swing.JOptionPane;
+import swing.dao.HomestayDao;
+import swing.dao.UserDao;
+import swing.helpers.DataValidator;
+import swing.helpers.MessageDialogHelper;
+import swing.helpers.SharedData;
+import swing.model.Homestay;
+import swing.model.User;
+
 /**
  *
  * @author Emi Tiramis
  */
 public class AccountPanel extends javax.swing.JPanel {
 
+    public User u = SharedData.u;
+
     /**
      * Creates new form AccountPanel
      */
     public AccountPanel() {
         initComponents();
+        lblWelcome.setText("Welcome, " + u.getFirstName());
+        showInformation();
+    }
+
+    private void clearTxt() {
+    }
+
+    private void showInformation() {
+        setEditablePanel(false);
+        txtTelephone.setText(u.getTelephone());
+        txtFirstName.setText(u.getFirstName());
+        txtLastName.setText(u.getLastName());
+        txtAddress.setText(u.getAddress());
+        txtCountry.setText(u.getCountry());
+        txtSex.setText((u.getSex() == 1) ? "Male" : "Female");
+    }
+
+    private void setEditablePanel(boolean state) {
+        txtTelephone.setEditable(state);
+        txtFirstName.setEditable(state);
+        txtLastName.setEditable(state);
+        txtAddress.setEditable(state);
+        txtCountry.setEditable(state);
+//        txtSex.setEditable(state);
+//        txtPassword.setEditable(state);
+//        txtVerifyPassword.setEditable(state);
     }
 
     /**
@@ -45,6 +82,8 @@ public class AccountPanel extends javax.swing.JPanel {
         txtSex = new javax.swing.JTextField();
         txtVerifyPassword = new javax.swing.JPasswordField();
         txtPassword = new javax.swing.JPasswordField();
+        btnEdit = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
 
         kGradientPanel1.setkEndColor(new java.awt.Color(63, 120, 208));
         kGradientPanel1.setkStartColor(new java.awt.Color(39, 56, 83));
@@ -57,8 +96,8 @@ public class AccountPanel extends javax.swing.JPanel {
 
         lblWelcome.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         lblWelcome.setForeground(new java.awt.Color(255, 255, 255));
-        lblWelcome.setText("jLabel2");
-        kGradientPanel1.add(lblWelcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, -1, -1));
+        lblWelcome.setText("Welcome");
+        kGradientPanel1.add(lblWelcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 40, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -115,6 +154,22 @@ public class AccountPanel extends javax.swing.JPanel {
         kGradientPanel1.add(txtVerifyPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 410, 380, -1));
         kGradientPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 370, 380, -1));
 
+        btnEdit.setText("Edit information");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
+        kGradientPanel1.add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 480, -1, -1));
+
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+        kGradientPanel1.add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 480, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -127,8 +182,68 @@ public class AccountPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        // TODO add your handling code here:
+        setEditablePanel(true);
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+        StringBuilder sb = new StringBuilder();
+        DataValidator.validateEmpty(txtFirstName, sb, "Missing first name");
+        DataValidator.validateEmpty(txtLastName, sb, "Missing first name");
+        DataValidator.validateEmpty(txtAddress, sb, "Missing address");
+        DataValidator.validateEmpty(txtCountry, sb, "Missing country");
+        DataValidator.validateEmpty(txtTelephone, sb, "Missing telephone");
+        if (sb.length() > 0) {
+            MessageDialogHelper.showErrorDialog(null, sb.toString(), "Error");
+            return;
+        }
+        try {
+            User u1 = new User();
+            u1.setFirstName(txtFirstName.getText());
+            u1.setLastName(txtLastName.getText());
+            u1.setAddress(txtAddress.getText());
+            u1.setCountry(txtCountry.getText());
+            u1.setSex(u.getSex());
+            u1.setTelephone(u.getTelephone());
+            if (checkPassword() == 2){
+                u1.setPassword(String.valueOf(txtPassword.getPassword()));
+            } else if (checkPassword() == 0){
+                u1.setPassword(u.getPassword());
+            }
+            UserDao dao = new UserDao();
+            if (checkPassword() != 1) {
+                if (dao.updateUser(u1)) {
+                    MessageDialogHelper.showMessageDialog(null, "Saved", "Information");
+                } else {
+                    MessageDialogHelper.showConfirmDialog(null, "Cannot saved", "Warning");
+                }
+            } else {
+                MessageDialogHelper.showMessageDialog(null, "Password doesn't match", "Information");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            MessageDialogHelper.showErrorDialog(null, e.getMessage(), "Error");
+        }
+    }//GEN-LAST:event_btnSaveActionPerformed
+    
+    private int checkPassword(){
+        String pass = String.valueOf(txtPassword.getPassword());
+        String verifiedPass = String.valueOf(txtVerifyPassword.getPassword());
+        if (txtPassword.getPassword().length == 0){
+            return 0;
+        } else{
+            if (!pass.equals(verifiedPass)){
+                return 1;
+            } else return 2;
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
