@@ -130,8 +130,11 @@ public class HomestayDao {
                     home.setPrice(Double.parseDouble(rs.getString("Price").substring(0,rs.getString("Price").length() - 4)));
                     home.setTelephone(rs.getString("Telephone"));
                     home.setAmenities(rs.getString("Amenities"));
+                    home.setID(rs.getString("ID"));
                     Blob blob = rs.getBlob("Picture");
-                    home.setPicture(blob.getBytes(1, (int) blob.length()));
+                    if (blob != null) {
+                        home.setPicture(blob.getBytes(1, (int) blob.length()));
+                    }
                     list.add(home);
                 }
                 return list;
@@ -152,15 +155,46 @@ public class HomestayDao {
                     Homestay home = new Homestay();
                     home.setAddress(rs.getString("Address"));
                     home.setName(rs.getString("Name"));
-                    home.setPrice(Double.parseDouble(rs.getString("Price").substring(0,rs.getString("Price").length() - 4)));
+                    home.setPrice(Double.parseDouble(rs.getString("Price").substring(0, rs.getString("Price").length() - 4)));
                     home.setTelephone(rs.getString("Telephone"));
                     home.setAmenities(rs.getString("Amenities"));
+                    home.setID(rs.getString("ID"));
                     Blob blob = rs.getBlob("Picture");
-                    home.setPicture(blob.getBytes(1, (int) blob.length()));
+                    if (blob != null) {
+                        home.setPicture(blob.getBytes(1, (int) blob.length()));
+                    }
                     list.add(home);
                 }
                 return list;
             }
         }
+    }
+    public Homestay findPlaceID(String id) throws Exception{
+        String sql = "select * from [Homestay]" +
+                " where ID = ?";
+        try(
+                Connection con = DatabaseHelper.openConnection();
+                PreparedStatement pstmt = con.prepareStatement(sql);
+                ){
+            pstmt.setString(1, id);
+            try (ResultSet rs = pstmt.executeQuery();) {
+                List<Homestay> list = new ArrayList<>();
+                if (rs.next()){
+                    Homestay home = new Homestay();
+                    home.setAddress(rs.getString("Address"));
+                    home.setName(rs.getString("Name"));
+                    home.setPrice(Double.parseDouble(rs.getString("Price").substring(0, rs.getString("Price").length() - 4)));
+                    home.setTelephone(rs.getString("Telephone"));
+                    home.setAmenities(rs.getString("Amenities"));
+                    home.setID(rs.getString("ID"));
+                    Blob blob = rs.getBlob("Picture");
+                    if (blob != null) {
+                        home.setPicture(blob.getBytes(1, (int) blob.length()));
+                    }
+                    return home;
+                }
+            }
+        }
+        return null;
     }
 }
