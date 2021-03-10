@@ -5,9 +5,15 @@
  */
 package swing.ui;
 
+import java.awt.Image;
+import java.io.File;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
 import swing.dao.UserDao;
 import swing.helpers.DataValidator;
+import swing.helpers.ImageHelper;
 import swing.helpers.MessageDialogHelper;
 import swing.model.User;
 
@@ -20,6 +26,7 @@ public class SignupDialog extends javax.swing.JDialog {
     /**
      * Creates new form SignupDialog
      */
+    private byte[] personalImage;
     public SignupDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -57,6 +64,7 @@ public class SignupDialog extends javax.swing.JDialog {
         btnClear = new keeptoo.KButton();
         btnAdd = new keeptoo.KButton();
         txtPassword = new javax.swing.JPasswordField();
+        lblImage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -131,7 +139,7 @@ public class SignupDialog extends javax.swing.JDialog {
         txtCountry.setForeground(new java.awt.Color(255, 255, 255));
         txtCountry.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         txtCountry.setOpaque(false);
-        kGradientPanel1.add(txtCountry, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 350, -1));
+        kGradientPanel1.add(txtCountry, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 90, -1));
 
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Country:");
@@ -143,6 +151,11 @@ public class SignupDialog extends javax.swing.JDialog {
         btnPicture.setkHoverForeGround(new java.awt.Color(0, 0, 0));
         btnPicture.setkHoverStartColor(new java.awt.Color(255, 255, 255));
         btnPicture.setkStartColor(new java.awt.Color(111, 122, 140));
+        btnPicture.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPictureActionPerformed(evt);
+            }
+        });
         kGradientPanel1.add(btnPicture, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 340, 90, 30));
 
         btnClear.setText("Clear");
@@ -156,7 +169,7 @@ public class SignupDialog extends javax.swing.JDialog {
                 btnClearActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(btnClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 410, 90, 30));
+        kGradientPanel1.add(btnClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 90, 30));
 
         btnAdd.setText("Add");
         btnAdd.setkEndColor(new java.awt.Color(63, 120, 208));
@@ -169,12 +182,16 @@ public class SignupDialog extends javax.swing.JDialog {
                 btnAddActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 410, 90, 30));
+        kGradientPanel1.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 420, 90, 30));
 
         txtPassword.setForeground(new java.awt.Color(255, 255, 255));
         txtPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         txtPassword.setOpaque(false);
         kGradientPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 220, 350, -1));
+
+        lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/ui/images/icons8_male_user_100px.png"))); // NOI18N
+        kGradientPanel1.add(lblImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 280, 190, 150));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -200,6 +217,9 @@ public class SignupDialog extends javax.swing.JDialog {
         txtTelephone.setText("");
         txtPassword.setText("");
         txtCountry.setText("");
+        personalImage = null;
+        ImageIcon icon = new ImageIcon(getClass().getResource("/swing/ui/images/icons8_male_user_100px.png"));
+        lblImage.setIcon(icon);
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -227,7 +247,7 @@ public class SignupDialog extends javax.swing.JDialog {
             u.setCountry(txtCountry.getText());
             u.setPassword(new String(txtPassword.getPassword()));
             u.setSex(rdbMale.isSelected() ? 1: 0);
-
+            u.setPicture(personalImage);
             UserDao dao = new UserDao();
             if (dao.insertUser(u)){
                 MessageDialogHelper.showMessageDialog(null, "Saved", "Information");
@@ -240,6 +260,39 @@ public class SignupDialog extends javax.swing.JDialog {
             MessageDialogHelper.showErrorDialog(null, e.getMessage(), "Error");
         }
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnPictureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPictureActionPerformed
+        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileFilter(new FileFilter() {
+            @Override
+            public boolean accept(File f) {
+                if (f.isDirectory()){
+                    return true;
+                } else{
+                    return f.getName().toLowerCase().endsWith(".jpg");
+                }
+            }
+            @Override
+            public String getDescription() {
+                return "Image File (*.jpg)";
+            }
+        });
+        if (chooser.showOpenDialog(null) == JFileChooser.CANCEL_OPTION){
+            return;
+        }
+        File file = chooser.getSelectedFile();
+        try {
+            ImageIcon icon = new ImageIcon(file.getPath());
+            Image img = ImageHelper.resize(icon.getImage(), 180, 220);
+            ImageIcon resizedIcon = new ImageIcon(img);
+            lblImage.setIcon(resizedIcon);
+            personalImage = ImageHelper.toByteArray(img, "jpg");
+        } catch (Exception e) {
+            e.printStackTrace();
+            MessageDialogHelper.showMessageDialog(null, e.getMessage(), "Error");
+        }
+    }//GEN-LAST:event_btnPictureActionPerformed
 
     /**
      * @param args the command line arguments
@@ -298,6 +351,7 @@ public class SignupDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
     private keeptoo.KGradientPanel kGradientPanel1;
+    private javax.swing.JLabel lblImage;
     private javax.swing.JRadioButton rdbFemale;
     private javax.swing.JRadioButton rdbMale;
     private javax.swing.JTextField txtAddress;

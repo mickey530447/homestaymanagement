@@ -39,6 +39,8 @@ public class UserDao {
                     u.setCountry(rs.getString("Country"));
                     u.setSex(Integer.parseInt(rs.getString("Sex")));
                     u.setPassword(password);
+                    Blob blob = rs.getBlob("Picture");
+                    u.setPicture(blob.getBytes(1, (int) blob.length()));
                     return u;
                 }
             }

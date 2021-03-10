@@ -27,7 +27,6 @@ public class AccountPanel extends javax.swing.JPanel {
      */
     public AccountPanel() {
         initComponents();
-        lblWelcome.setText("Welcome, " + u.getFirstName());
         showInformation();
     }
 
@@ -66,7 +65,6 @@ public class AccountPanel extends javax.swing.JPanel {
 
         kGradientPanel1 = new keeptoo.KGradientPanel();
         jLabel1 = new javax.swing.JLabel();
-        lblWelcome = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -84,6 +82,7 @@ public class AccountPanel extends javax.swing.JPanel {
         txtPassword = new javax.swing.JPasswordField();
         btnEdit = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
+        lblImage = new javax.swing.JLabel();
 
         kGradientPanel1.setkEndColor(new java.awt.Color(63, 120, 208));
         kGradientPanel1.setkStartColor(new java.awt.Color(39, 56, 83));
@@ -92,67 +91,62 @@ public class AccountPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Verify password:");
-        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, -1, -1));
-
-        lblWelcome.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        lblWelcome.setForeground(new java.awt.Color(255, 255, 255));
-        lblWelcome.setText("Welcome");
-        kGradientPanel1.add(lblWelcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 40, -1, -1));
+        kGradientPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 480, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Telephone:");
-        kGradientPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
+        kGradientPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("First name:");
-        kGradientPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
+        kGradientPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Last name:");
-        kGradientPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
+        kGradientPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Address:");
-        kGradientPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
+        kGradientPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Country:");
-        kGradientPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, -1, -1));
+        kGradientPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Sex:");
-        kGradientPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, -1, -1));
+        kGradientPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Password:");
-        kGradientPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, -1));
+        kGradientPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, -1, -1));
 
         txtTelephone.setEditable(false);
-        kGradientPanel1.add(txtTelephone, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 380, -1));
+        kGradientPanel1.add(txtTelephone, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 380, -1));
 
         txtFirstName.setEditable(false);
-        kGradientPanel1.add(txtFirstName, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 380, -1));
+        kGradientPanel1.add(txtFirstName, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 220, 380, -1));
 
         txtLastName.setEditable(false);
-        kGradientPanel1.add(txtLastName, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 190, 380, -1));
+        kGradientPanel1.add(txtLastName, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 260, 380, -1));
 
         txtAddress.setEditable(false);
-        kGradientPanel1.add(txtAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 380, -1));
+        kGradientPanel1.add(txtAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 300, 380, -1));
 
         txtCountry.setEditable(false);
-        kGradientPanel1.add(txtCountry, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, 380, -1));
+        kGradientPanel1.add(txtCountry, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, 380, -1));
 
         txtSex.setEditable(false);
-        kGradientPanel1.add(txtSex, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, 80, -1));
-        kGradientPanel1.add(txtVerifyPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 410, 380, -1));
-        kGradientPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 370, 380, -1));
+        kGradientPanel1.add(txtSex, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, 80, -1));
+        kGradientPanel1.add(txtVerifyPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 480, 380, -1));
+        kGradientPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 440, 380, -1));
 
         btnEdit.setText("Edit information");
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
@@ -160,7 +154,7 @@ public class AccountPanel extends javax.swing.JPanel {
                 btnEditActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 480, -1, -1));
+        kGradientPanel1.add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 550, -1, -1));
 
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
@@ -168,7 +162,11 @@ public class AccountPanel extends javax.swing.JPanel {
                 btnSaveActionPerformed(evt);
             }
         });
-        kGradientPanel1.add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 480, -1, -1));
+        kGradientPanel1.add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 550, -1, -1));
+
+        lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/ui/images/icons8_male_user_100px.png"))); // NOI18N
+        kGradientPanel1.add(lblImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 190, 150));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -253,7 +251,7 @@ public class AccountPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private keeptoo.KGradientPanel kGradientPanel1;
-    private javax.swing.JLabel lblWelcome;
+    private javax.swing.JLabel lblImage;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtCountry;
     private javax.swing.JTextField txtFirstName;
