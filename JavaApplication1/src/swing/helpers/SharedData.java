@@ -6,6 +6,8 @@
 package swing.helpers;
 
 import swing.model.Homestay;
+import swing.model.Invoice;
+import swing.model.Review;
 import swing.model.User;
 
 /**
@@ -15,4 +17,6 @@ import swing.model.User;
 public class SharedData {
     public static User u; 
     public static Homestay home;
+    public static Homestay bookingHome;
+    public static Review review;
 }

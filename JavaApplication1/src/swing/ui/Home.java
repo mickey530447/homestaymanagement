@@ -21,6 +21,7 @@ public class Home extends javax.swing.JFrame {
     private HomestayManagementPanel mHomestayPanel;
     private FindHomestayPanel mFindHomestayPanel;
     private AccountPanel accountPanel;
+    private ReviewPanel reviewPanel;
     /**
      * Creates new form Home
      */
@@ -44,22 +45,25 @@ public class Home extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
+        btn_1 = new javax.swing.JPanel();
+        ind_1 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         btn_2 = new javax.swing.JPanel();
         ind_2 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         btn_3 = new javax.swing.JPanel();
         ind_3 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        btn_4 = new javax.swing.JPanel();
-        ind_4 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        btn_5 = new javax.swing.JPanel();
-        ind_5 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
         btn_6 = new javax.swing.JPanel();
         ind_6 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         lblGreet = new javax.swing.JLabel();
+        btn_4 = new javax.swing.JPanel();
+        ind_4 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        btn_5 = new javax.swing.JPanel();
+        ind_5 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btn_logout = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -79,6 +83,51 @@ public class Home extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(24, 34, 56));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btn_1.setBackground(new java.awt.Color(24, 34, 56));
+        btn_1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btn_1MousePressed(evt);
+            }
+        });
+
+        ind_1.setBackground(new java.awt.Color(255, 255, 255));
+        ind_1.setOpaque(false);
+        ind_1.setPreferredSize(new java.awt.Dimension(4, 88));
+
+        javax.swing.GroupLayout ind_1Layout = new javax.swing.GroupLayout(ind_1);
+        ind_1.setLayout(ind_1Layout);
+        ind_1Layout.setHorizontalGroup(
+            ind_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 4, Short.MAX_VALUE)
+        );
+        ind_1Layout.setVerticalGroup(
+            ind_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 62, Short.MAX_VALUE)
+        );
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Manage your place");
+
+        javax.swing.GroupLayout btn_1Layout = new javax.swing.GroupLayout(btn_1);
+        btn_1.setLayout(btn_1Layout);
+        btn_1Layout.setHorizontalGroup(
+            btn_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_1Layout.createSequentialGroup()
+                .addComponent(ind_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(78, 78, 78)
+                .addComponent(jLabel5))
+        );
+        btn_1Layout.setVerticalGroup(
+            btn_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(ind_1, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+            .addGroup(btn_1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel5))
+        );
+
+        jPanel2.add(btn_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 280, -1));
 
         btn_2.setBackground(new java.awt.Color(24, 34, 56));
         btn_2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -102,9 +151,9 @@ public class Home extends javax.swing.JFrame {
             .addGap(0, 62, Short.MAX_VALUE)
         );
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Manage your place");
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Find homestay");
 
         javax.swing.GroupLayout btn_2Layout = new javax.swing.GroupLayout(btn_2);
         btn_2.setLayout(btn_2Layout);
@@ -113,17 +162,17 @@ public class Home extends javax.swing.JFrame {
             .addGroup(btn_2Layout.createSequentialGroup()
                 .addComponent(ind_2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(78, 78, 78)
-                .addComponent(jLabel5))
+                .addComponent(jLabel6))
         );
         btn_2Layout.setVerticalGroup(
             btn_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(ind_2, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
             .addGroup(btn_2Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jLabel5))
+                .addComponent(jLabel6))
         );
 
-        jPanel2.add(btn_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 280, -1));
+        jPanel2.add(btn_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 280, -1));
 
         btn_3.setBackground(new java.awt.Color(24, 34, 56));
         btn_3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -147,9 +196,9 @@ public class Home extends javax.swing.JFrame {
             .addGap(0, 62, Short.MAX_VALUE)
         );
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Find homestay");
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("About ");
 
         javax.swing.GroupLayout btn_3Layout = new javax.swing.GroupLayout(btn_3);
         btn_3.setLayout(btn_3Layout);
@@ -158,17 +207,69 @@ public class Home extends javax.swing.JFrame {
             .addGroup(btn_3Layout.createSequentialGroup()
                 .addComponent(ind_3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(78, 78, 78)
-                .addComponent(jLabel6))
+                .addComponent(jLabel7))
         );
         btn_3Layout.setVerticalGroup(
             btn_3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(ind_3, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
             .addGroup(btn_3Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jLabel6))
+                .addComponent(jLabel7))
         );
 
-        jPanel2.add(btn_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 280, -1));
+        jPanel2.add(btn_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 280, -1));
+
+        btn_6.setBackground(new java.awt.Color(24, 34, 56));
+        btn_6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btn_6MousePressed(evt);
+            }
+        });
+
+        ind_6.setBackground(new java.awt.Color(255, 255, 255));
+        ind_6.setOpaque(false);
+        ind_6.setPreferredSize(new java.awt.Dimension(4, 88));
+
+        javax.swing.GroupLayout ind_6Layout = new javax.swing.GroupLayout(ind_6);
+        ind_6.setLayout(ind_6Layout);
+        ind_6Layout.setHorizontalGroup(
+            ind_6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 4, Short.MAX_VALUE)
+        );
+        ind_6Layout.setVerticalGroup(
+            ind_6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Exit");
+
+        javax.swing.GroupLayout btn_6Layout = new javax.swing.GroupLayout(btn_6);
+        btn_6.setLayout(btn_6Layout);
+        btn_6Layout.setHorizontalGroup(
+            btn_6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btn_6Layout.createSequentialGroup()
+                .addComponent(ind_6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(77, 77, 77)
+                .addComponent(jLabel9)
+                .addContainerGap(176, Short.MAX_VALUE))
+        );
+        btn_6Layout.setVerticalGroup(
+            btn_6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(ind_6, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+            .addGroup(btn_6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9)
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+
+        jPanel2.add(btn_6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 590, 280, 60));
+
+        lblGreet.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblGreet.setForeground(new java.awt.Color(255, 255, 255));
+        lblGreet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/logo_200x200.png"))); // NOI18N
+        jPanel2.add(lblGreet, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, -10, -1, -1));
 
         btn_4.setBackground(new java.awt.Color(24, 34, 56));
         btn_4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -189,12 +290,12 @@ public class Home extends javax.swing.JFrame {
         );
         ind_4Layout.setVerticalGroup(
             ind_4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 62, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("About ");
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Your account");
 
         javax.swing.GroupLayout btn_4Layout = new javax.swing.GroupLayout(btn_4);
         btn_4.setLayout(btn_4Layout);
@@ -203,17 +304,19 @@ public class Home extends javax.swing.JFrame {
             .addGroup(btn_4Layout.createSequentialGroup()
                 .addComponent(ind_4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(78, 78, 78)
-                .addComponent(jLabel7))
+                .addComponent(jLabel10)
+                .addGap(115, 115, 115))
         );
         btn_4Layout.setVerticalGroup(
             btn_4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ind_4, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+            .addComponent(ind_4, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
             .addGroup(btn_4Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jLabel7))
+                .addComponent(jLabel10)
+                .addGap(0, 39, Short.MAX_VALUE))
         );
 
-        jPanel2.add(btn_4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 280, -1));
+        jPanel2.add(btn_4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 280, -1));
 
         btn_5.setBackground(new java.awt.Color(24, 34, 56));
         btn_5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -239,7 +342,7 @@ public class Home extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Your account");
+        jLabel8.setText("Your trip");
 
         javax.swing.GroupLayout btn_5Layout = new javax.swing.GroupLayout(btn_5);
         btn_5.setLayout(btn_5Layout);
@@ -260,59 +363,7 @@ public class Home extends javax.swing.JFrame {
                 .addGap(0, 39, Short.MAX_VALUE))
         );
 
-        jPanel2.add(btn_5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 480, -1, -1));
-
-        btn_6.setBackground(new java.awt.Color(24, 34, 56));
-        btn_6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btn_6MousePressed(evt);
-            }
-        });
-
-        ind_6.setBackground(new java.awt.Color(255, 255, 255));
-        ind_6.setOpaque(false);
-        ind_6.setPreferredSize(new java.awt.Dimension(4, 88));
-
-        javax.swing.GroupLayout ind_6Layout = new javax.swing.GroupLayout(ind_6);
-        ind_6.setLayout(ind_6Layout);
-        ind_6Layout.setHorizontalGroup(
-            ind_6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 4, Short.MAX_VALUE)
-        );
-        ind_6Layout.setVerticalGroup(
-            ind_6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 78, Short.MAX_VALUE)
-        );
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Exit");
-
-        javax.swing.GroupLayout btn_6Layout = new javax.swing.GroupLayout(btn_6);
-        btn_6.setLayout(btn_6Layout);
-        btn_6Layout.setHorizontalGroup(
-            btn_6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btn_6Layout.createSequentialGroup()
-                .addComponent(ind_6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77)
-                .addComponent(jLabel9)
-                .addContainerGap())
-        );
-        btn_6Layout.setVerticalGroup(
-            btn_6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ind_6, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
-            .addGroup(btn_6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel9)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel2.add(btn_6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 560, 280, -1));
-
-        lblGreet.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblGreet.setForeground(new java.awt.Color(255, 255, 255));
-        lblGreet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/images/logo_200x200.png"))); // NOI18N
-        jPanel2.add(lblGreet, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, -10, -1, -1));
+        jPanel2.add(btn_5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 510, 280, -1));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 770));
 
@@ -389,27 +440,24 @@ public class Home extends javax.swing.JFrame {
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap(230, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40))
-            .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                    .addContainerGap(273, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(172, 172, 172)))
+            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addContainerGap(186, Short.MAX_VALUE)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(215, 215, 215))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(84, 84, 84))))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap(364, Short.MAX_VALUE)
+                .addContainerGap(231, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(193, 193, 193))
-            .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                    .addGap(275, 275, 275)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(282, Short.MAX_VALUE)))
         );
 
         tplMainBoard.addTab("tab1", kGradientPanel1);
@@ -419,52 +467,53 @@ public class Home extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_2MousePressed
+    private void btn_1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_1MousePressed
         // TODO add your handling code here:
-        setColor(btn_2);
-        ind_2.setOpaque(true);
-        resetColor(new JPanel[]{btn_3,btn_4,btn_5,btn_6}, new JPanel[]{ ind_3, ind_4,ind_5,ind_6});
+        setColor(btn_1);
+        ind_1.setOpaque(true);
+        resetColor(new JPanel[]{btn_2,btn_3,btn_5,btn_6}, new JPanel[]{ ind_2, ind_3,ind_5,ind_6});
         if (mHomestayPanel == null) {
             mHomestayPanel = new HomestayManagementPanel();
             ImageIcon icon = new ImageIcon(getClass().getResource("/swing/images/icons8_home_20px.png"));
             tplMainBoard.addTab("Homestay manager", icon, mHomestayPanel, "Homestay Management");
         }
         tplMainBoard.setSelectedComponent(mHomestayPanel);
-    }//GEN-LAST:event_btn_2MousePressed
+    }//GEN-LAST:event_btn_1MousePressed
 
-    private void btn_3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_3MousePressed
+    private void btn_2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_2MousePressed
         // TODO add your handling code here:
-        setColor(btn_3);
-        ind_3.setOpaque(true);
-        resetColor(new JPanel[]{btn_2,btn_4,btn_5,btn_6}, new JPanel[]{ ind_2, ind_4,ind_5,ind_6});
+        setColor(btn_2);
+        ind_2.setOpaque(true);
+        resetColor(new JPanel[]{btn_1,btn_3,btn_4,btn_5}, new JPanel[]{ ind_1, ind_3,ind_4,ind_5});
         if (mFindHomestayPanel == null){
             mFindHomestayPanel = new FindHomestayPanel();
             ImageIcon icon = new ImageIcon(getClass().getResource("/swing/images/icons8_search_20px_1.png"));
             tplMainBoard.addTab("Find place", icon, mFindHomestayPanel, "Find place");
         }
         tplMainBoard.setSelectedComponent(mFindHomestayPanel);
-    }//GEN-LAST:event_btn_3MousePressed
+    }//GEN-LAST:event_btn_2MousePressed
 
-    private void btn_4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_4MousePressed
+    private void btn_3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_3MousePressed
         // TODO add your handling code here:
-        setColor(btn_4);
-        ind_4.setOpaque(true);
-        resetColor(new JPanel[]{btn_2,btn_3,btn_5,btn_6}, new JPanel[]{ ind_2, ind_3,ind_5,ind_6});
+        setColor(btn_3);
+        ind_3.setOpaque(true);
+        resetColor(new JPanel[]{btn_1,btn_2,btn_4,btn_5}, new JPanel[]{ ind_1, ind_2,ind_4,ind_5});
         AboutUsDialog aboutDialog = new AboutUsDialog(this, true);
         
         aboutDialog.setVisible(true);
-    }//GEN-LAST:event_btn_4MousePressed
+    }//GEN-LAST:event_btn_3MousePressed
 
     private void btn_5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_5MousePressed
         // TODO add your handling code here:
         setColor(btn_5);
         ind_5.setOpaque(true);
-        resetColor(new JPanel[]{btn_2,btn_3,btn_4,btn_6}, new JPanel[]{ ind_2, ind_3,ind_4,ind_6});
-        if (accountPanel == null) {
-            accountPanel = new AccountPanel();
-            tplMainBoard.addTab("Manage account", null, accountPanel, "Manage account");
+        resetColor(new JPanel[]{btn_1,btn_2,btn_3,btn_4}, new JPanel[]{ ind_1, ind_2,ind_3,ind_4});
+        if (reviewPanel == null){
+            reviewPanel = new ReviewPanel();
+            ImageIcon icon = new ImageIcon(getClass().getResource("/swing/images/icons8_search_20px_1.png"));
+            tplMainBoard.addTab("Find place", icon, reviewPanel, "Find place");
         }
-        tplMainBoard.setSelectedComponent(accountPanel);
+        tplMainBoard.setSelectedComponent(reviewPanel);
 
     }//GEN-LAST:event_btn_5MousePressed
 
@@ -485,9 +534,21 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
         setColor(btn_6);
         ind_6.setOpaque(true);
-        resetColor(new JPanel[]{btn_2,btn_3,btn_4,btn_5}, new JPanel[]{ ind_2, ind_3,ind_4,ind_5});
+        resetColor(new JPanel[]{btn_1,btn_2,btn_3,btn_5}, new JPanel[]{ ind_1, ind_2,ind_3,ind_5});
         System.exit(0);
     }//GEN-LAST:event_btn_6MousePressed
+
+    private void btn_4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_4MousePressed
+        // TODO add your handling code here:
+        setColor(btn_4);
+        ind_4.setOpaque(true);
+        resetColor(new JPanel[]{btn_1,btn_2,btn_3,btn_5}, new JPanel[]{ ind_1, ind_2,ind_3,ind_5});
+        if (accountPanel == null) {
+            accountPanel = new AccountPanel();
+            tplMainBoard.addTab("Manage account", null, accountPanel, "Manage account");
+        }
+        tplMainBoard.setSelectedComponent(accountPanel);
+    }//GEN-LAST:event_btn_4MousePressed
 
     /**
      * @param args the command line arguments
@@ -539,18 +600,21 @@ public class Home extends javax.swing.JFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel btn_1;
     private javax.swing.JPanel btn_2;
     private javax.swing.JPanel btn_3;
     private javax.swing.JPanel btn_4;
     private javax.swing.JPanel btn_5;
     private javax.swing.JPanel btn_6;
     private javax.swing.JPanel btn_logout;
+    private javax.swing.JPanel ind_1;
     private javax.swing.JPanel ind_2;
     private javax.swing.JPanel ind_3;
     private javax.swing.JPanel ind_4;
     private javax.swing.JPanel ind_5;
     private javax.swing.JPanel ind_6;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

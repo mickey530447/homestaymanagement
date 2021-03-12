@@ -452,8 +452,8 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(btnPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         add(kGradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 710));
@@ -481,7 +481,7 @@ public class HomestayManagementPanel extends javax.swing.JPanel {
             MessageDialogHelper.showErrorDialog(null, sb.toString(), "Error");
             return;
         }
-        if (MessageDialogHelper.showConfirmDialog(null, "Confirm?", "Are you sure?") == JOptionPane.NO_OPTION) {
+        if (MessageDialogHelper.showConfirmDialog(null, "Are you sure?", "Are you sure?") == JOptionPane.NO_OPTION) {
             return;
         }
         StringBuilder ame = new StringBuilder();

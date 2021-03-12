@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import swing.dao.HomestayDao;
 import swing.helpers.ImageHelper;
 import swing.helpers.MessageDialogHelper;
+import swing.helpers.SharedData;
 import swing.model.Homestay;
 
 /**
@@ -70,6 +71,7 @@ public class FindHomestayPanel extends javax.swing.JPanel {
         txtName = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         lblImage = new javax.swing.JLabel();
+        btnBook = new javax.swing.JButton();
 
         kGradientPanel1.setkEndColor(new java.awt.Color(63, 120, 208));
         kGradientPanel1.setkStartColor(new java.awt.Color(39, 56, 83));
@@ -102,7 +104,7 @@ public class FindHomestayPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, 710, 200));
+        kGradientPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 710, 200));
 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Address:");
@@ -163,6 +165,14 @@ public class FindHomestayPanel extends javax.swing.JPanel {
         lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/swing/ui/images/icons8_image_100px.png"))); // NOI18N
         kGradientPanel1.add(lblImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 270, 280));
 
+        btnBook.setText("Book this place");
+        btnBook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBookActionPerformed(evt);
+            }
+        });
+        kGradientPanel1.add(btnBook, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 330, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -175,25 +185,6 @@ public class FindHomestayPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void loadDataToTable() {
-        try {
-            HomestayDao dao = new HomestayDao();
-            List<Homestay> list = dao.findPlaceByName(txtName);
-            model.setRowCount(0);
-            for (Homestay it : list) {
-                model.addRow(new Object[]{
-                    it.getName(),
-                    it.getAddress(),
-                    it.getPrice(),
-                    it.getAmenities()
-                });
-            }
-            model.fireTableDataChanged();
-        } catch (Exception e) {
-            e.printStackTrace();
-            MessageDialogHelper.showErrorDialog(jLabel1, TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY);
-        }
-    }
     private void btnSearchCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchCityActionPerformed
         // TODO add your handling code here:
         try {
@@ -212,7 +203,7 @@ public class FindHomestayPanel extends javax.swing.JPanel {
             model.fireTableDataChanged();
         } catch (Exception e) {
             e.printStackTrace();
-            MessageDialogHelper.showErrorDialog(jLabel1, TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY);
+            MessageDialogHelper.showErrorDialog(null, TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY);
         }
     }//GEN-LAST:event_btnSearchCityActionPerformed
 
@@ -229,7 +220,7 @@ public class FindHomestayPanel extends javax.swing.JPanel {
                 String id =(String) jTable1.getValueAt(row, 0);
                 HomestayDao dao = new  HomestayDao();
                 Homestay home = dao.findPlaceID(id);
-                
+                SharedData.bookingHome = home;
                 if (home != null){
                     txtName.setText(home.getName());
                     txtAddress.setText(home.getAddress());
@@ -269,9 +260,16 @@ public class FindHomestayPanel extends javax.swing.JPanel {
             model.fireTableDataChanged();
         } catch (Exception e) {
             e.printStackTrace();
-            MessageDialogHelper.showErrorDialog(jLabel1, TOOL_TIP_TEXT_KEY, TOOL_TIP_TEXT_KEY);
+            MessageDialogHelper.showErrorDialog(null, "Error", "Error");
         }
     }//GEN-LAST:event_btnSearchNameActionPerformed
+
+    private void btnBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookActionPerformed
+        // TODO add your handling code here:
+        BookingDialog bDialog = new BookingDialog(null, true);
+        
+        bDialog.setVisible(true);
+    }//GEN-LAST:event_btnBookActionPerformed
 
     private void clearTxt() {
         txtName.setText("");
@@ -281,6 +279,7 @@ public class FindHomestayPanel extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBook;
     private javax.swing.JButton btnSearchCity;
     private javax.swing.JButton btnSearchName;
     private javax.swing.JLabel jLabel1;

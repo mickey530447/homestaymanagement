@@ -106,7 +106,9 @@ public class HomestayDao {
                 home.setAmenities(rs.getString("Amenities"));
                 home.setID(rs.getString("ID"));
                 Blob blob = rs.getBlob("Picture");
-                home.setPicture(blob.getBytes(1, (int) blob.length()));
+                if (blob != null) {
+                    home.setPicture(blob.getBytes(1, (int) blob.length()));
+                }
                 list.add(home);
             }
             return list;
@@ -178,7 +180,6 @@ public class HomestayDao {
                 ){
             pstmt.setString(1, id);
             try (ResultSet rs = pstmt.executeQuery();) {
-                List<Homestay> list = new ArrayList<>();
                 if (rs.next()){
                     Homestay home = new Homestay();
                     home.setAddress(rs.getString("Address"));
